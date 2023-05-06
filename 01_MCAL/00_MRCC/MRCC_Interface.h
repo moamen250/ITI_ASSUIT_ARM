@@ -1,10 +1,10 @@
-/*
- * MRCC_Interface.h
- *
- *  Created on: May 5, 2023
- *      Author: Ahmed Khaled Hammad
- */
-
+/******************************************************************************/
+/* Auther                : Amr Wahba                                          */
+/* Version               : V1.0.0                                             */
+/* Date                  : 6 May 2023                                         */
+/* Description           : MRCC_Interface.h                                   */
+/* Features              : Supporting Intializtion  of MRCC driver            */
+/******************************************************************************/
 #ifndef MRCC_INTERFACE_H_
 #define MRCC_INTERFACE_H_
 
