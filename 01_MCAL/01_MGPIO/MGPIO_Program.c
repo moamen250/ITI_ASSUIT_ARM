@@ -72,15 +72,7 @@ ES_t MGPIO_errGetPinData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Cop
         case GPIOE:
             *Copy_pu8PinMode = (GPIOE_IDR &(1U<<Copy_uddtPinNum));
             break;
-        case GPIOF:
-            *Copy_pu8PinMode = (GPIOF_IDR &(1U<<Copy_uddtPinNum));
-            break;
-        case GPIOG:
-            *Copy_pu8PinMode = (GPIOG_IDR &(1U<<Copy_uddtPinNum));
-            break;
-        case GPIOH:
-            *Copy_pu8PinMode = (GPIOH_IDR &(1U<<Copy_uddtPinNum));
-            break;
+
         default:
             break;
         }
