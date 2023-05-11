@@ -1,8 +1,10 @@
-/*
- * Author: Peter and Ghada
- * Data: 6 May 2023
- * Version: 0.0
- */
+/******************************************************************************/
+/* Auther                : Peter and Ghada                                    */
+/* Version               : V1.0.0                                             */
+/* Date                  : 6 May 2023                                         */
+/* Description           : MGPIO_Program.c                                    */
+/******************************************************************************/
+
 
 #ifndef GPIO_PRIVATE_H
 #define GPIO_PRIVATE_H
