@@ -76,14 +76,15 @@ ES_t MGPIO_errGetPinData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Cop
         default:
             break;
         }
-		else
-		{    Local_ErrorState =	ES_NOK,
-;
-
-			
-		}
     }
-	return  Local_ErrorState ;
+    else
+    {
+        Local_ErrorState =	ES_NOK;
+
+
+    }
+
+    return  Local_ErrorState ;
 
 }
 ES_t MGPIO_errSetPullType(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PullType)
