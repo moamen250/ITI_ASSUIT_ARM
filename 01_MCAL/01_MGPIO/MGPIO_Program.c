@@ -35,6 +35,7 @@
 #include "MGPIO_Inteface.h"
 
 /******************************************************************************/
+/*                 MGPIO Functions implementation                             */
 /*                        MGPIO Functions implementation                      */
 /******************************************************************************/
 
@@ -267,7 +268,44 @@ ES_t MGPIO_errSetPinOutType(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum 
 }
 ES_t MGPIO_errSetPinOutSpeed(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinOutSpeed)
 {
-//TODO
+	/*Chick for ES_OUT_OF_RANGE_PORT */
+	if (Copy_uddtPortNum >= MGPOI_INVALID_PORT )
+	{
+		return ES_OUT_OF_RANGE_PORT;
+	}
+	else
+	{
+		/*Chick for ES_OUT_OF_RANGE_Pin */
+		if(Copy_uddtPinNum >= MGPOI_INVALID_PIN )
+		{
+			return ES_OUT_OF_RANGE_PIN;
+		}
+		else
+		{
+			/*Chick for ES_OUT_OF_RANGE_PIN in PORT C*/
+			if ((Copy_uddtPortNum == MGPIO_PORTC) && (Copy_uddtPinNum > MGPIO_PIN2))
+			{
+				return ES_OUT_OF_RANGE_PIN;
+			}
+			else
+			{
+				/*Chick for ES_OUT_OF_RANGE_Speed */
+				if (Copy_u8PinOutSpeed > MGPIO_OUTPUT_VHIGH_SPEED )
+				{
+					return ES_NOK;
+				}
+				else
+				{
+					/*0xFFFFFFF3  is clearing mask*/
+					CLR_BITS(GPIOA_OSPEEDR,0xFFFFFFF3);
+					SET_BITS(GPIOA_OSPEEDR,Copy_u8PinOutSpeed);
+				}
+			}
+		}
+
+
+
+
 }
 ES_t MGPIO_errSetPinLock( MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum)
 {
