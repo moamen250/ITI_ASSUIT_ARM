@@ -42,7 +42,16 @@
 
 ES_t MGPIO_errSetPinMode(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinMode)
 {
-//TODO
+ ES_t state=OK;
+	 switch(Copy_uddtPortNum)
+	{
+	  case MGPIO_PORTA : GPIOA_MODER  |= (u32) ( Copy_u8PinMode << ( 2* Copy_uddtPinNum )) ; break;
+	  case MGPIO_PORTB : GPIOB_MODER  |= (u32) ( Copy_u8PinMode << ( 2* Copy_uddtPinNum )) ; break;
+	  case MGPIO_PORTC : GPIOC_MODER  |= (u32) ( Copy_u8PinMode << ( 2* Copy_uddtPinNum )) ; break;
+	  
+	  default : state=NOK; break ;
+    }
+	return state;
 }
 ES_t MGPIO_errSetPinData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinValue)
 {
@@ -139,15 +148,15 @@ ES_t MGPIO_errSetPinOutSpeed(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum
 {
 //TODO
 }
-ES_t MGPIO_errSetPinLock()
+ES_t MGPIO_errSetPinLock( MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum)
 {
 //TODO
 }
-ES_t MGPIO_errSetOrResetPinAtomic()
+ES_t MGPIO_errSetOrResetPinAtomic(MGPIO_uddtPortNum Copy_uddtPortNum,u32 MGPIO_Pin_Value)
 {
 //TODO
 }
-ES_t MGPIO_errSetPinAltFun()
+ES_t MGPIO_errSetPinAltFun(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 GPIO_AFSelection )
 {
 //TODO
 }
