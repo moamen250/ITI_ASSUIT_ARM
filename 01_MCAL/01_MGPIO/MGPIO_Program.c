@@ -188,7 +188,82 @@ ES_t MGPIO_errSetPullType(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Co
 }
 ES_t MGPIO_errSetPinOutType(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinOutType)
 {
-//TODO
+	/*	Initiat the error state variable to detect any error then return it  */
+	ES_t Local_uddtError = ES_OK;
+	/* Check if the input port found or not  , if found continue , if not return Error_OUT_OF_RANGE_PORT */
+		switch(Copy_uddtPortNum)
+		{
+			case MGPIO_PORTA :
+			/* Check if the input PIN in port A in range  0 -> 15  or not , if not return Error_OUT_OF_RANGE_PIN */
+				if((u8)Copy_uddtPinNum < MGPOI_INVALID_PIN)
+				{			/* First mode  : OUTPUT_PUSHPULL */ 
+					if(Copy_u8PinOutType == MGPIO_OUTPUT_PUSHPULL )
+					{	/* config OTYPER register by setting bit  */
+						SET_BIT(GPIOA_OTYPER ,Copy_uddtPinNum);
+					}		/* Second mode  : OUTPUT_OPERDRAIN */ 
+					else if (Copy_u8PinOutType == MGPIO_OUTPUT_OPERDRAIN)
+					{	/* config OTYPER register by Clearing bit  */
+						CLR_BIT(GPIOA_OTYPER ,Copy_uddtPinNum);
+					}
+					else 
+					{	/* No More Modes to config , return NOT OK */
+						Local_uddtError = ES_NOK ;
+					}
+				}
+				else 
+				{	/* the user enterd pin not in this port */
+					Local_uddtError = ES_OUT_OF_RANGE_PIN ;
+				}
+			break;
+			case MGPIO_PORTB :
+			/* Check if the input PIN in port A in range  0 -> 15  or not , if not return Error_OUT_OF_RANGE_PIN */
+				if((u8)Copy_uddtPinNum < MGPOI_INVALID_PIN)
+				{			/* First mode  : OUTPUT_PUSHPULL */ 
+					if(Copy_u8PinOutType == MGPIO_OUTPUT_PUSHPULL )
+					{	/* config OTYPER register by setting bit  */
+						SET_BIT(GPIOB_OTYPER ,Copy_uddtPinNum);
+					}		/* Second mode  : OUTPUT_OPERDRAIN */ 
+					else if (Copy_u8PinOutType == MGPIO_OUTPUT_OPERDRAIN)
+					{	/* config OTYPER register by Clearing bit  */
+						CLR_BIT(GPIOB_OTYPER ,Copy_uddtPinNum);
+					}
+					else 
+					{	/* No More Modes to config , return NOT OK */
+						Local_uddtError = ES_NOK ;
+					}
+				}
+				else 
+				{	/* the user enterd pin not in this port */
+					Local_uddtError = ES_OUT_OF_RANGE_PIN ;
+				}
+			break;
+			case MGPIO_PORTC :
+			/* Check if the input PIN in port A in range  0 -> 15  or not , if not return Error_OUT_OF_RANGE_PIN */
+				if((u8)Copy_uddtPinNum < MGPOI_INVALID_PIN && Copy_uddtPinNum >= MGPIO_PIN13)
+				{			/* First mode  : OUTPUT_PUSHPULL */ 
+					if(Copy_u8PinOutType == MGPIO_OUTPUT_PUSHPULL )
+					{	/* config OTYPER register by setting bit  */
+						SET_BIT(GPIOC_OTYPER ,Copy_uddtPinNum);
+					}		/* Second mode  : OUTPUT_OPERDRAIN */ 
+					else if (Copy_u8PinOutType == MGPIO_OUTPUT_OPERDRAIN)
+					{	/* config OTYPER register by Clearing bit  */
+						CLR_BIT(GPIOC_OTYPER ,Copy_uddtPinNum);
+					}
+					else 
+					{	/* No More Modes to config , return NOT OK */
+						Local_uddtError = ES_NOK ;
+					}
+				}
+				else 
+				{	/* The user enterd pin not in this port */
+					Local_uddtError = ES_OUT_OF_RANGE_PIN ;
+				}
+			break;
+			default :	/* The user enterd port not in this MC*/
+				Local_uddtError = ES_OUT_OF_RANGE_PORT ;
+			break;
+		}/* Return Error Status */
+		return Local_uddtError ;
 }
 ES_t MGPIO_errSetPinOutSpeed(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinOutSpeed)
 {
