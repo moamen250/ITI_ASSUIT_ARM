@@ -44,15 +44,22 @@ ES_t MGPIO_errSetPinMode(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Cop
 {
 //TODO
 }
-ES_t MGPIO_errSetPinData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinValue)
-{
+/**
+ *
+ * @param Copy_uddtPortNum
+ * @param Copy_uddtPinNum
+ * @param Copy_u8PinValue
+ * @return  ES_t
+ */
 /******************************************************************************/
 /*                      implementation  MGPIO_errSetPinData                   */
 /******************************************************************************/
 
+ES_t MGPIO_errSetPinData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinValue)
+{
                                                            /* define local error state and initialize by ES_OK */
 	ES_t Local_ES_t=ES_OK;
-                                                           /* switch to port number */
+                                                          /* switch to port number */
 	switch(Copy_uddtPortNum)
 	{
 	                                                       /* port A  */
