@@ -51,7 +51,7 @@ typedef enum
 	MGPIO_PORTA = 0 ,
 	MGPIO_PORTB     ,
 	MGPIO_PORTC     ,
-    MGPOI_INVALID_PORT
+    MGPIO_INVALID_PORT
 }MGPIO_uddtPortNum;
 
 
@@ -77,7 +77,7 @@ typedef enum
 	MGPIO_PIN13    ,
 	MGPIO_PIN14    ,
 	MGPIO_PIN15    ,
-    MGPOI_INVALID_PIN
+    MGPIO_INVALID_PIN
 }MGPIO_uddtPinNum;
 
 
@@ -87,59 +87,89 @@ typedef enum
 /*                          Define Pin Mode                               */
 /**************************************************************************/
 
-#define MGPIO_MODE_INPUT      0
-#define MGPIO_MODE_OUTPUT     1
-#define MGPIO_MODE_ALTF       2
-#define MGPIO_MODE_ANALOG     3
+//#define MGPIO_MODE_INPUT      0
+//#define MGPIO_MODE_OUTPUT     1
+//#define MGPIO_MODE_ALTF       2
+//#define MGPIO_MODE_ANALOG     3
 
-/**************************************************************************/
-/*                          Define Pin Mode                               */
-/**************************************************************************/
-
-#define MGPIO_MODE_INPUT      0
-#define MGPIO_MODE_OUTPUT     1
-#define MGPIO_MODE_ALTF       2
-#define MGPIO_MODE_ANALOG     3
-
+typedef enum
+{
+	MGPIO_MODE_INPUT ,
+	MGPIO_MODE_OUTPUT,
+	MGPIO_MODE_ALTF  ,
+	MGPIO_MODE_ANALOG
+}MGPIO_PinMode;
 
 /**************************************************************************/
 /*                          Define Pin PULL type                          */
 /**************************************************************************/
 
-#define MGPIO_PULL_OFF       0
-#define MGPIO_PULL_UP        1
-#define MGPIO_PULL_DOWN      2
+//#define MGPIO_PULL_OFF       0
+//#define MGPIO_PULL_UP        1
+//#define MGPIO_PULL_DOWN      2
+
+typedef enum
+{
+	MGPIO_PULL_OFF ,
+	MGPIO_PULL_UP  ,
+	MGPIO_PULL_DOWN
+}MGPIO_PinPullType;
 
 /**************************************************************************/
-/*                          Define Pin OutSpeed type                      */
+/*                        Define Pin OutSpeed type                        */
 /**************************************************************************/
 
-#define MGPIO_OUTPUT_LOW_SPEED        0
-#define MGPIO_OUTPUT_MEDIUM_SPEED     1
-#define MGPIO_OUTPUT_HIGH_SPEED       2
-#define MGPIO_OUTPUT_VHIGH_SPEED      3
+//#define MGPIO_OUTPUT_LOW_SPEED        0
+//#define MGPIO_OUTPUT_MEDIUM_SPEED     1
+//#define MGPIO_OUTPUT_HIGH_SPEED       2
+//#define MGPIO_OUTPUT_VHIGH_SPEED      3
 
+typedef enum
+{
+	MGPIO_OUTPUT_LOW_SPEED		,
+	MGPIO_OUTPUT_MEDIUM_SPEED	,
+	MGPIO_OUTPUT_HIGH_SPEED		,
+	MGPIO_OUTPUT_VHIGH_SPEED
+}MGPIO_PinSpeed;
 
 /**************************************************************************/
 /*                          Define Pin Data type                          */
 /**************************************************************************/
 
-#define MGPIO_PIN_LOW              0
-#define MGPIO_PIN_HIGH             1
+//#define MGPIO_PIN_LOW              0
+//#define MGPIO_PIN_HIGH             1
+
+typedef enum
+{
+	MGPIO_PIN_LOW	,
+	MGPIO_PIN_HIGH
+}MGPIO_PinDataType;
 
 /**************************************************************************/
 /*                          Define GPIO OutputCircut                      */
 /**************************************************************************/
 
-#define MGPIO_OUTPUT_PUSHPULL       0
-#define MGPIO_OUTPUT_OPERDRAIN      1
+//#define MGPIO_OUTPUT_PUSHPULL       0
+//#define MGPIO_OUTPUT_OPERDRAIN      1
+
+typedef enum
+{
+	MGPIO_OUTPUT_PUSHPULL	,
+	MGPIO_OUTPUT_OPERDRAIN
+}MGPIO_OutputCircuit;
 
 /**************************************************************************/
 /*                          Define PIN LOCK                               */
 /**************************************************************************/
 
-#define MGPIO_PIN_UNLOCK            0
-#define MGPIO_PIN_LOCK              1
+//#define MGPIO_PIN_UNLOCK            0
+//#define MGPIO_PIN_LOCK              1
+
+typedef enum
+{
+	MGPIO_PIN_UNLOCK	,
+	MGPIO_PIN_LOCK
+}MGPIO_PinLock;
 
 
 
