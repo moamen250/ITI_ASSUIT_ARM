@@ -24,6 +24,7 @@ typedef enum
 	ES_OK ,
 	ES_OUT_OF_RANGE_PIN,
     ES_OUT_OF_RANGE_PORT,
+	ES_OUT_OF_VALUE_PIN,
 	ES_NULL_POINTER
 }ES_t ; 
 
