@@ -185,15 +185,15 @@ ES_t MGPIO_errSetPinOutSpeed(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum
 {
 //TODO
 }
-ES_t MGPIO_errSetPinLock()
+ES_t MGPIO_errSetPinLock( MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum)
 {
 //TODO
 }
-ES_t MGPIO_errSetOrResetPinAtomic()
+ES_t MGPIO_errSetOrResetPinAtomic(MGPIO_uddtPortNum Copy_uddtPortNum,u32 MGPIO_Pin_Value)
 {
 //TODO
 }
-ES_t MGPIO_errSetPinAltFun()
+ES_t MGPIO_errSetPinAltFun(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 GPIO_AFSelection )
 {
 //TODO
 }
