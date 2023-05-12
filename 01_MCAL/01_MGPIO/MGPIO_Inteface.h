@@ -51,7 +51,7 @@ typedef enum
 	MGPIO_PORTA = 0 ,
 	MGPIO_PORTB     ,
 	MGPIO_PORTC     ,
-    MGPIO_INVALID_PORT
+	MGPIO_INVALID_PORT
 }MGPIO_uddtPortNum;
 
 
@@ -171,6 +171,16 @@ typedef enum
 	MGPIO_PIN_LOCK
 }MGPIO_PinLock;
 
+/**************************************************************************/
+/*                          Define PIN Alternative Options                */
+/**************************************************************************/
+
+
+
+//typedef enum
+//{
+//	// TODO
+//}MGPIO_PinALtOptions;
 
 
 /**************************************************************************/
@@ -178,7 +188,7 @@ typedef enum
 /**************************************************************************/
 ES_t MGPIO_errSetPinMode(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinMode);
 ES_t MGPIO_errSetPinData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinValue);
-ES_t MGPIO_errGetPinData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 *Copy_pu8PinMode);
+ES_t MGPIO_errGetPinData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 *Copy_pu8PinValue);
 ES_t MGPIO_errSetPullType(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PullType);
 ES_t MGPIO_errSetPinOutType(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinOutType);
 ES_t MGPIO_errSetPinOutSpeed(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinOutSpeed);

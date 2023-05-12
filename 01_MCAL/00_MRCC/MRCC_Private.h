@@ -55,4 +55,50 @@
 #define MRCC_PLLI2SCFGR                     (*((volatile u32 *)(MRCC_BASE_ADDRESS + 0x84)))
 #define MRCC_DCKCFGR                        (*((volatile u32 *)(MRCC_BASE_ADDRESS + 0x8C)))
 
+
+/******************************************************************************/
+/*                          Clock Source Options                              */
+/******************************************************************************/
+
+/*
+ *     -CLOCK SOURCE Option:
+ *            1) MRCC_HSI
+ *            2) MRCC_HSE
+ *            3) MRCC_PLL
+ */
+
+#define MRCC_HSI     0
+#define MRCC_HSE     1
+#define MRCC_PLL     2
+
+/******************************************************************************/
+/*                              Clock HSE Options                             */
+/******************************************************************************/
+
+/*
+ *     -CLOCK SOURCE Option For HSE:
+ *            1) MRCC_HSE_MECH
+ *            2) MRCC_HSE_ELEC
+ */
+
+
+#define   MRCC_HSE_MECH     0
+#define   MRCC_HSE_ELEC     1
+
+
+/******************************************************************************/
+/*                         Clock Source OF PLL Options                        */
+/******************************************************************************/
+
+/*
+ *     -CLOCK SOURCE Option For PLL:
+ *            1) MRCC_HSE_SRC
+ *            2) MRCC_HSI_SRC
+ */
+#define    MRCC_HSE_SRC    0
+#define    MRCC_HSI_SRC    1
+
+
+#define    READY           1
+
 #endif /* MRCC_PRIVATE_H_ */
