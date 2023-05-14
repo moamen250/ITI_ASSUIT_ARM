@@ -196,4 +196,5 @@ ES_t MGPIO_errSetPinLock( MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Co
 ES_t MGPIO_errSetOrResetPinAtomic(MGPIO_uddtPortNum Copy_uddtPortNum,u32 MGPIO_Pin_Value);
 ES_t MGPIO_errSetPinAltFun(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 GPIO_AFSelection );
 
+ES_t MGPIO_errSetPortData(MGPIO_uddtPortNum Copy_uddtPortNum,u32 Copy_u8PortValue);
 #endif /* MGPIO_INTEFACE_H_ */
