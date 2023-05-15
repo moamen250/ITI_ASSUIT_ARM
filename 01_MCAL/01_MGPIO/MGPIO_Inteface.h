@@ -186,7 +186,7 @@ typedef enum
 /*                                    Define Macro Function                                             */
 /******************************************************************************/
 
-#define  MGPIO_PINs_From_To(  _FROM_  ,  _TO_  )     ( ( PUT_ONS(  _FROM_  ,  _TO_  ) ) )
+#define  MGPIO_PINs_From_To(  _FROM_  ,  _TO_  )     ( (u16)( PUT_ONS(  _FROM_  ,  _TO_  ) ) )
 //Example : MGPIO PINs From To      5     ->    14       :                   (  0xb0111 1111 1110 0000   )
 
 /**************************************************************************/
@@ -208,18 +208,8 @@ ES_t MGPIO_errSetPinAltFun(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum C
 /**************************************************************************/
 #if MGPIO_GROUP_OF_PINs_APIs          ==          MGPIO_ENABLE
 /**************************************************************************/
-/******************************************************************************/
-/*                             Renaming The data types                         */
-/******************************************************************************/
-typedef u16                                   MGPIO_PINsGroup;
-typedef u16                                   MGPIO_GroupDataLogic ;
-typedef MGPIO_PinMode           MGPIO_GroupMode;
-/******************************************************************************/
-/**************************************************************************/
-/*                          Function Prototypes                           */
-/**************************************************************************/
-ES_t MGPIO_errSetPINsGroupMode(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_PINsGroup Copy_uddtPINsGroup,MGPIO_GroupMode Copy_uddtGroupMode);
-ES_t MGPIO_errSetPINsGroupData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_PINsGroup Copy_uddtPINsGroup, MGPIO_GroupDataLogic Copy_uddtGroupLogic);
+ES_t MGPIO_errSetPINsGroupMode(MGPIO_uddtPortNum Copy_uddtPortNum,u16 Copy_uddtPINsGroup,MGPIO_PinMode Copy_uddtGroupMode);
+ES_t MGPIO_errSetPINsGroupData(MGPIO_uddtPortNum Copy_uddtPortNum,u16 Copy_uddtPINsGroup, u16 Copy_uddtGroupLogic);
 /**************************************************************************/
 #endif
 /**************************************************************************/

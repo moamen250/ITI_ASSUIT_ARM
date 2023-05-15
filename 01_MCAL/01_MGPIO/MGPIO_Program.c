@@ -880,7 +880,7 @@ ES_t MGPIO_errSetPinAltFun(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum C
 /*                              (ES_OUT_OF_RANGE_PORT)  : The user enter number of PORT more than MC PORTs  or negative number                                   */
 /*                              (ES_WRONG_MODE_VALUE) : The user enter wrong value to configure specific mode or negative value                                 */
 /******************************************************************************************************************************************************************/
-ES_t MGPIO_errSetPINsGroupMode(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_PINsGroup Copy_uddtPINsGroup,MGPIO_GroupMode Copy_uddtGroupMode)
+ES_t MGPIO_errSetPINsGroupMode(MGPIO_uddtPortNum Copy_uddtPortNum,u16 Copy_uddtPINsGroup,MGPIO_PinMode Copy_uddtGroupMode)
 {
 	ES_t LOC_uddtState          = ES_OK; 	/*	Initiate  The Error State variable to detect any error then return it  */
 	u32 LOC_uddtPUTOnes   = 0;           	/*	Initiate  The Reset variable to clear the register before write the mode value  */
@@ -931,7 +931,7 @@ ES_t MGPIO_errSetPINsGroupMode(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_PINsGrou
 /*                              (ES_WRONG_PINs_VALUE)    : The user enter value of PINs equal to zero ( no pins to configure ), or PINs not in PORT C           */
 /*                              (ES_OUT_OF_RANGE_PORT)  : The user enter number of PORT more than MC PORTs  or negative number                                   */
 /******************************************************************************************************************************************************************/
-ES_t MGPIO_errSetPINsGroupData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_PINsGroup Copy_uddtPINsGroup,MGPIO_GroupDataLogic Copy_uddtGroupLogic)
+ES_t MGPIO_errSetPINsGroupData(MGPIO_uddtPortNum Copy_uddtPortNum,u16 Copy_uddtPINsGroup,u16 Copy_uddtGroupLogic)
 {
 	ES_t LOC_uddtState          = ES_OK; 	/*	Initiate  The Error State variable to detect any error then return it  */
 	/************************************************************************StartOFChecking***************************************************************************/
@@ -959,5 +959,4 @@ ES_t MGPIO_errSetPINsGroupData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_PINsGrou
 /***********************************************************************************************************************************************************************/
 #endif
 /***********************************************************************************************************************************************************************/
-
 
