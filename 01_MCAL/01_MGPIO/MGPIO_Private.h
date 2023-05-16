@@ -25,12 +25,12 @@
 #define GPIO_PRIVATE_H
 
 /******************************************************************************/
-/*              Object Like Macro For RCC Base Address Registers              */
+/*              Object Like Macro For  Base Address Registers              */
 /******************************************************************************/
 
-#define GPIOA_BASE_ADDRESS	0X40020000
-#define GPIOB_BASE_ADDRESS	0X40020400
-#define GPIOC_BASE_ADDRESS	0X40020800
+#define GPIOA_BASE_ADDRESS  0X40020000
+#define GPIOB_BASE_ADDRESS  0X40020400
+#define GPIOC_BASE_ADDRESS  0X40020800
 //#define GPIOD_BASE_ADDRESS       0x40020C00
 //#define GPIOE_BASE_ADDRESS       0x40021000
 //#define GPIOH_BASE_ADDRESS       0x40021C00
@@ -39,7 +39,7 @@
 
 
 /******************************************************************************/
-/*   Function Like Macro For GPIOx  To Use Registers pointer Registers        */
+/*                                   Define  Macro Function                                              */
 /******************************************************************************/
 #define  GPIOx_REG( _COPY_PORTNUM_  )     ( ( MGPIOx_t * )( ( GPIOA_BASE_ADDRESS ) + ( ( _COPY_PORTNUM_ ) * ( GPIOx_OFFSET_ADDRESS ) ) ) )
  /*
@@ -111,7 +111,17 @@ typedef struct
 
 #define MGPIOC                 ((MGPIOx_t*)(GPIOC_BASE_ADDRESS))
 
+/******************************************************************************/
+/*                 MGPIO PreBuild Configuration Options                       */
+/******************************************************************************/
+#define    MGPIO_DISABLE                      0
+#define    MGPIO_ENABLE                       1
+/******************************************************************************/
+/*                             MGPIO   BIT- MASK                              */
+/******************************************************************************/
+#define  BITS_MODE_MASK                      3U
 
+#define  PINs_PORTC_MASK                   0xE000U
 
 /******************************************************************************/
 /*                          GPIOA Registers MASKS                             */
@@ -119,7 +129,6 @@ typedef struct
 
 #define  BITS_MODE_MASK      3U
 #define  BITS_SPEED_MASK     3U
-
 
 /******************************************************************************/
 /*                             THE END OF DIFINITION                          */
