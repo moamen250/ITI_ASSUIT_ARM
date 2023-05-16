@@ -203,6 +203,7 @@ ES_t MGPIO_errSetPinOutSpeed(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum
 ES_t MGPIO_errSetPinLock( MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum);
 ES_t MGPIO_errSetOrResetPinAtomic(MGPIO_uddtPortNum Copy_uddtPortNum,u32 MGPIO_Pin_Value);
 ES_t MGPIO_errSetPinAltFun(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 GPIO_AFSelection );
+
 /**************************************************************************/
 #endif
 /**************************************************************************/
@@ -216,6 +217,7 @@ ES_t MGPIO_errSetPINsGroupData(MGPIO_uddtPortNum Copy_uddtPortNum,u16 Copy_uddtP
 #if MGPIO_PORTs_APIs                            ==          MGPIO_ENABLE
 /**************************************************************************/
 //TODO
+ES_t MGPIO_errSetPortData(MGPIO_uddtPortNum Copy_uddtPortNum,u32 Copy_u8PortValue);
 /**************************************************************************/
 #endif
 /**************************************************************************/
