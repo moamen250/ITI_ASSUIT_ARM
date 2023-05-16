@@ -129,7 +129,8 @@ typedef enum
 	MGPIO_OUTPUT_LOW_SPEED		,
 	MGPIO_OUTPUT_MEDIUM_SPEED	,
 	MGPIO_OUTPUT_HIGH_SPEED		,
-	MGPIO_OUTPUT_VHIGH_SPEED
+	MGPIO_OUTPUT_VHIGH_SPEED	,
+	MGPIO_INVALID_PIN_SPEED
 }MGPIO_PinSpeed;
 
 /**************************************************************************/

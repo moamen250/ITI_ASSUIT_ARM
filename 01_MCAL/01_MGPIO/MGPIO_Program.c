@@ -200,47 +200,41 @@ ES_t MGPIO_errSetPinOutType(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum 
 }
 /******************************************************************************************************************************************************************/
 
+/******************************************************************************/
+/*                           06_ MGPIO_errSetPinOutSpeed                      */
+/*----------------------------------------------------------------------------*/
+/* 1- Function Description -> Set pin PinOutSpeed                             */
+/* 2- Function Input       ->                                                 */
+/*                     @param Copy_uddtPortNum                                */
+/*                     @param Copy_uddtPinNum                                 */
+/*                     @param Copy_u8PinPinOutSpeed                           */
+/* 3- Function Return      -> @return  ES_t                                   */
+/*       [ ES_OK ,  ES_NOK , ES_OUT_OF_RANGE_PIN, ES_OUT_OF_RANGE_PORT ,      */
+/*        ES_INVALID_PIN_SPEED	                                              */
+/******************************************************************************/
+
 ES_t MGPIO_errSetPinOutSpeed(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinOutSpeed)
 {
+	ES_t LOC_uddtState= ES_OK;
 	/*Chick for ES_OUT_OF_RANGE_PORT */
-	//	if (Copy_uddtPortNum >= MGPOI_INVALID_PORT )
-	//	{
-	//		return ES_OUT_OF_RANGE_PORT;
-	//	}
-	//	else
-	//	{
-	//		/*Chick for ES_OUT_OF_RANGE_Pin */
-	//		if(Copy_uddtPinNum >= MGPOI_INVALID_PIN )
-	//		{
-	//			return ES_OUT_OF_RANGE_PIN;
-	//		}
-	//		else
-	//		{
-	//			/*Chick for ES_OUT_OF_RANGE_PIN in PORT C*/
-	//			if ((Copy_uddtPortNum == MGPIO_PORTC) && (Copy_uddtPinNum > MGPIO_PIN2))
-	//			{
-	//				return ES_OUT_OF_RANGE_PIN;
-	//			}
-	//			else
-	//			{
-	//				/*Chick for ES_OUT_OF_RANGE_Speed */
-	//				if (Copy_u8PinOutSpeed > MGPIO_OUTPUT_VHIGH_SPEED )
-	//				{
-	//					return ES_NOK;
-	//				}
-	//				else
-	//				{
-	//					/*0xFFFFFFF3  is clearing mask*/
-	//					CLR_BITS(GPIOA_OSPEEDR,0xFFFFFFF3);
-	//					SET_BITS(GPIOA_OSPEEDR,Copy_u8PinOutSpeed);
-	//				}
-	//			}
-	//		}
-	//
-	//
-	//
+	if (Copy_uddtPortNum >= MGPIO_INVALID_PORT )  {LOC_uddtState=ES_OUT_OF_RANGE_PORT; }
+	/*Chick for ES_OUT_OF_RANGE_Pin */
+	else if(Copy_uddtPinNum >= MGPIO_INVALID_PIN )  {LOC_uddtState=ES_OUT_OF_RANGE_PIN; }
+	/*Chick for ES_PORTC_WRONG_PIN */
+	else if ((Copy_uddtPortNum == MGPIO_PORTC) && (Copy_uddtPinNum < MGPIO_PIN13)) {LOC_uddtState=ES_OUT_OF_RANGE_PIN;}
+	/*Chick for ES_INVALID_PIN_SPEED */
+	else if(Copy_u8PinOutSpeed >= MGPIO_INVALID_PIN_SPEED) {LOC_uddtState=ES_INVALID_PIN_SPEED;}
+	else
+	{
+		/*BITS_SPEED_MASK = 3U >>>> a clearing mask for 2 bits at OSPEEDR REG */
+		GPIOx_REG(Copy_uddtPortNum)->OSPEEDR &=  ~ (u32) ( BITS_SPEED_MASK << ( 2* Copy_uddtPinNum )) ;
+		GPIOx_REG(Copy_uddtPortNum)->OSPEEDR |=    (u32) ( Copy_u8PinOutSpeed << ( 2* Copy_uddtPinNum )) ;
+	}
+
+	return LOC_uddtState;
 
 }
+
 ES_t MGPIO_errSetPinLock( MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum)
 {
 	//TODO
