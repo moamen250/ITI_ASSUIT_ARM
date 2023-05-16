@@ -143,7 +143,7 @@ typedef enum
 {
 	MGPIO_PIN_LOW	,
 	MGPIO_PIN_HIGH
-}MGPIO_PinDataType;
+}MGPIO_PinDataLogic;
 
 /**************************************************************************/
 /*                          Define GPIO OutputCircut                      */
@@ -182,9 +182,17 @@ typedef enum
 //	// TODO
 //}MGPIO_PinALtOptions;
 
+/******************************************************************************/
+/*                                    Define Macro Function                                             */
+/******************************************************************************/
+
+#define  MGPIO_PINs_From_To(  _FROM_  ,  _TO_  )     ( (u16)( PUT_ONS(  _FROM_  ,  _TO_  ) ) )
+//Example : MGPIO PINs From To      5     ->    14       :                   (  0xb0111 1111 1110 0000   )
 
 /**************************************************************************/
 /*                          Function Prototypes                           */
+/**************************************************************************/
+#if MGPIO_PIN_APIs          ==          MGPIO_ENABLE
 /**************************************************************************/
 ES_t MGPIO_errSetPinMode(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinMode);
 ES_t MGPIO_errSetPinData(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 Copy_u8PinValue);
@@ -195,5 +203,20 @@ ES_t MGPIO_errSetPinOutSpeed(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum
 ES_t MGPIO_errSetPinLock( MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum);
 ES_t MGPIO_errSetOrResetPinAtomic(MGPIO_uddtPortNum Copy_uddtPortNum,u32 MGPIO_Pin_Value);
 ES_t MGPIO_errSetPinAltFun(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 GPIO_AFSelection );
-
+/**************************************************************************/
+#endif
+/**************************************************************************/
+#if MGPIO_GROUP_OF_PINs_APIs          ==          MGPIO_ENABLE
+/**************************************************************************/
+ES_t MGPIO_errSetPINsGroupMode(MGPIO_uddtPortNum Copy_uddtPortNum,u16 Copy_uddtPINsGroup,MGPIO_PinMode Copy_uddtGroupMode);
+ES_t MGPIO_errSetPINsGroupData(MGPIO_uddtPortNum Copy_uddtPortNum,u16 Copy_uddtPINsGroup, u16 Copy_uddtGroupLogic);
+/**************************************************************************/
+#endif
+/**************************************************************************/
+#if MGPIO_PORTs_APIs                            ==          MGPIO_ENABLE
+/**************************************************************************/
+//TODO
+/**************************************************************************/
+#endif
+/**************************************************************************/
 #endif /* MGPIO_INTEFACE_H_ */

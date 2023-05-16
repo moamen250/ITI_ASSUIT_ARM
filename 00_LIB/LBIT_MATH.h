@@ -25,5 +25,13 @@
 #define SET_ALL_BITS(REG)         ((REG) = (0xFFFFFFFF))
 #define CLR_ALL_BITS(REG)         ((REG) = (0U) )
 #define TOG_ALL_BITS(REG)         ((REG) = ~(REG))
-
+ /*
+  *      ADD | by : Mohamed Yehia  :
+  *                        @Example  :  We can use it if we need group of pins  ( from  5  to 12  )  or  need all pins except ( from 5 to 12 ) like  ( 0bx1110 0000 0001 1111 )
+  */
+#define PUT_ONS(  _FROM_   ,   _TO_   )         ( (  u32  )( ( ( 2 << ( ( _TO_ ) - ( _FROM_ ) ) ) - 1 ) << ( _FROM_ ) ) )
+#define PUT_ZEROS(  _FROM_  ,  _TO_ )           ( ~PUT_ONS(  _FROM_   ,   _TO_   )  )
+/***********************************************************************************************************************************************/
+/*                                                                                          The   End                                                                                                                       */
+/***********************************************************************************************************************************************/
 #endif
