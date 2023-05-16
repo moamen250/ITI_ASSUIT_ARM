@@ -58,7 +58,7 @@ ES_t MRCC_errDisablePeripherialClk(MRCC_uddtBusName Copy_uddtBusName, u8 Copy_u8
 ES_t MRCC_errInitSystemClk(void)
 {
 	ES_t LOC_uddtState = ES_OK ;
-
+#if MRCC_CLKSRC == MRCC_HSI
     /****************** HSI ********************/
 		/* 1- EN HSI
 		 * 3- Switch HSI
@@ -68,30 +68,40 @@ ES_t MRCC_errInitSystemClk(void)
 		while(GET_BIT(MRCC_CR,1U) != READY) ;
 		CLR_BIT(MRCC_CFGR,0U) ;
 	    CLR_BIT(MRCC_CFGR,1U) ;
-
+#elif MRCC_CLKSRC == MRCC_HSE
 	/****************** HSE ********************/
-	/*               Crystal Clock
-	 * 1- EN HSE
-	 * 2- Disable BYPASS
-	 * 2- Wait till ready
-	 * 3- Switch HSE
-	 * 4- Confirm -> read SWS bits
-	 * */
-//	SET_BIT(MRCC_CR,16U) ;
-//	CLR_BIT(MRCC_CR,18U) ;
-//	while(GET_BIT(MRCC_CR,17U) != READY) ;
-//	SET_BIT(MRCC_CFGR,0U) ;
-//    CLR_BIT(MRCC_CFGR,1U) ;
+     #if MRCC_HSETYP  ==    MRCC_HSE_MECH
+     	/*               Crystal Clock
+     	 * 1- EN HSE
+     	 * 2- Disable BYPASS
+     	 * 2- Wait till ready
+     	 * 3- Switch HSE
+     	 * 4- Confirm -> read SWS bits
+     	 * */
+     	SET_BIT(MRCC_CR,16U) ;
+     	CLR_BIT(MRCC_CR,18U) ;
+     	while(GET_BIT(MRCC_CR,17U) != READY) ;
+     	SET_BIT(MRCC_CFGR,0U) ;
+         CLR_BIT(MRCC_CFGR,1U) ;
 
-    /*               Crystal Clock
-    	 * 1- EN HSE
-    	 * 2- Enable BYPASS
-    	 * 2- Wait till ready
-    	 * 3- Switch HSE
-    	 * 4- Confirm -> read SWS bits
-    	 * */
+     #elif MRCC_HSETYP  ==    MRCC_HSE_ELEC
+             /*           Electrical Clock
+         	 * 1- EN HSE
+         	 * 2- Enable BYPASS
+         	 * 2- Wait till ready
+         	 * 3- Switch HSE
+         	 * 4- Confirm -> read SWS bits
+         	 * */
+     	SET_BIT(MRCC_CR,16U) ;
+     	SET_BIT(MRCC_CR,18U) ;
+     	while(GET_BIT(MRCC_CR,17U) != READY) ;
+     	SET_BIT(MRCC_CFGR,0U) ;
+         CLR_BIT(MRCC_CFGR,1U) ;
+     #endif
 
+#elif MRCC_CLKSRC == MRCC_PLL
 	/****************** PLL ********************/
+#endif
     return LOC_uddtState ;
 
 }
