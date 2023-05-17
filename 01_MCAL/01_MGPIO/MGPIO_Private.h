@@ -34,7 +34,6 @@
 //#define GPIOD_BASE_ADDRESS       0x40020C00
 //#define GPIOE_BASE_ADDRESS       0x40021000
 //#define GPIOH_BASE_ADDRESS       0x40021C00
-
 #define  GPIOx_OFFSET_ADDRESS        0x400
 
 
