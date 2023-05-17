@@ -26,11 +26,21 @@
 #define HSWITCH_INTERFACE_H_
 #include "MGPIO_Inteface.h"
 #include "LERROR_STATES.h"
+
+/**************************************************************************/
+/*                    enum for Switch State                               */
+/**************************************************************************/
+typedef enum
+{
+	Switch_OFF = 0,
+	Switch_ON
+}sState_t;
 /**************************************************************************/
 /*                          Function Prototypes                           */
 /**************************************************************************/
 
 ES_t HSWITCH_errInit(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum);
-ES_t HSWITCH_errON(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum);
+u8   HSWITCH_u8GetSwitchState(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum);
+
 
 #endif /* HSWITCH_INTERFACE_H_ */

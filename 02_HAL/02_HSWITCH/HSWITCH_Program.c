@@ -41,7 +41,7 @@ ES_t HSWITCH_errInit(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_ud
 		/* Select PIN MODE*/
 		MGPIO_errSetPinMode(MGPIO_PORTA,Copy_uddtPinNum,MGPIO_MODE_INPUT);
 		/* SELECT PULL TYPE*/
-		MGPIO_errSetPullType(MGPIO_PORTA,Copy_uddtPinNum,MGPIO_PULL_UP);
+		MGPIO_errSetPullType(MGPIO_PORTA,Copy_uddtPinNum,MGPIO_PULL_DOWN);
 		break;
 	case MGPIO_PORTB :
 		/* ENABLE RCC */
@@ -49,7 +49,7 @@ ES_t HSWITCH_errInit(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_ud
 		/*SELECT PIN MODE*/
 		MGPIO_errSetPinMode(MGPIO_PORTB,Copy_uddtPinNum,MGPIO_MODE_INPUT);
 		/*SELECT PULL TYPE*/
-		MGPIO_errSetPullType(MGPIO_PORTB,Copy_uddtPinNum,MGPIO_PULL_UP);
+		MGPIO_errSetPullType(MGPIO_PORTB,Copy_uddtPinNum,MGPIO_PULL_DOWN);
 		break;
 	case MGPIO_PORTC :
 		/* ENABLE RCC*/
@@ -57,7 +57,7 @@ ES_t HSWITCH_errInit(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_ud
 		/* SELECT PIN MODE*/
 		MGPIO_errSetPinMode(MGPIO_PORTB,Copy_uddtPinNum,MGPIO_MODE_INPUT);
 		/*SELECT PULL TYPE*/
-		MGPIO_errSetPullType(MGPIO_PORTC,Copy_uddtPinNum,MGPIO_PULL_UP);
+		MGPIO_errSetPullType(MGPIO_PORTC,Copy_uddtPinNum,MGPIO_PULL_DOWN);
 		break;
 	default: Local_errState = ES_NOK;
 		break;
@@ -65,18 +65,15 @@ ES_t HSWITCH_errInit(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_ud
 
 	return Local_errState;
 }
-ES_t HSWITCH_errON(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum)
+u8 HSWITCH_u8GetSwitchState(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum)
 {
-	ES_t LOC_errState = ES_OK;
-	if(MGPIO_errGetPinData(Copy_uddtPortNum,Copy_uddtPinNum,MGPIO_PIN_HIGH))
-	{
-		MGPIO_errSetPinData(HLED_PORT,HLED_PIN,MGPIO_PIN_LOW);
-	}
-	if (LOC_errState != ES_OK)
-	{
-		LOC_errState = ES_NOK;
-	}
-	return LOC_errState;
+	u8 LOC_SwitchState;
+	MGPIO_errGetPinData(Copy_uddtPortNum,Copy_uddtPinNum,&LOC_SwitchState);
+	return LOC_SwitchState;
 }
+
+
+
+
 
 
