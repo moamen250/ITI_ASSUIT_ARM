@@ -29,6 +29,7 @@ typedef enum
     ES_OUT_OF_RANGE_PORT,   //The user enter number of PORT more than MC PORTs  or negative number
 	ES_WRONG_PINs_VALUE,    //The user enter wrong value to assign group of PINs      or negative value
 	ES_WRONG_MODE_VALUE,    //The user enter wrong value to configure specific mode or negative value
+	ES_INVALID_PIN_SPEED,
 	ES_NULL_POINTER         //The user enter  NULL pointer  ,  detect it before accessing  it
 }ES_t ; 
 

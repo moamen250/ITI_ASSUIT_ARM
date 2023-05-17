@@ -11,6 +11,8 @@
 
 #define  MSTK_BASE_ADDRESS   0xE000E010
 
+#define MSTK_RESOLUTION           16777216(UL)
+
 typedef struct
 {
  volatile u32 CTRL ;
