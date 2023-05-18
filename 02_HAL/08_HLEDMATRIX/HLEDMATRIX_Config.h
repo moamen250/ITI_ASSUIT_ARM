@@ -20,5 +20,10 @@
 #define HLEDMATRIX_COLUMNPORT   MGPIO_PORTA
 #define HLEDMATRIX_ROWPORT   	MGPIO_PORTB
 
+/********************************************************************************/
+/*                  define frames delay time                                    */
+/********************************************************************************/
+#define FRAME_DELAY_MS 5
+
 /*********************************************************************************/
 #endif /* HLEDMATRIX_CONFIG_H_ */
