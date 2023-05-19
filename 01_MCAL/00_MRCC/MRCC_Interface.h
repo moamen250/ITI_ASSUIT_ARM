@@ -46,7 +46,7 @@ typedef enum
 
 
 /**************************************************************************/
-/*                          Define RCC AHP1 CLK Enable                    */
+/*                          Define RCC AHB1 CLK Enable                    */
 /**************************************************************************/
 
 #define MRCC_GPIOA_EN      0U
@@ -54,12 +54,12 @@ typedef enum
 #define MRCC_GPIOC_EN      2U
 #define MRCC_GPIOD_EN      3U
 #define MRCC_DMA1_EN       21U
-#define MRCC_DMA1_EN       22U
+#define MRCC_DMA2_EN       22U
  //TODO
 
 
 /**************************************************************************/
-/*                          Define RCC AHP2 CLK Enable                    */
+/*                          Define RCC AHB2 CLK Enable                    */
 /**************************************************************************/
 #define MRCC_OTGFS_EN      7U
 //TODO
