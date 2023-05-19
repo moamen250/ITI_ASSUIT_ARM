@@ -22,10 +22,12 @@
 /*                               datasheets for details on this parameter.                                   */
 /*###########################################################################################################*/
 /*@Features  :                                                                                               */
-/*                  -                                                                                        */
-/*                  -                                                                                        */
-/*                  -                                                                                        */
-/*                  -                                                                                        */
+/*                  -  MEXTI_errInit()                                                                       */
+/*                  -  MEXTI_errEnableExtiLine()                                                             */
+/*                  -  MEXTI_errDisableExtiLine()                                                            */
+/*                  -  MEXTI_errSetSoftwareExtiLine()                                                        */
+/*                  -  MEXTI_errSetCallBack()                                                                */
+/*                  -  MEXTI_errSetSenseLevel()                                                              */
 /*@Future Update :                                                                                           */
 /*                  - Write Some APIs                                                                        */
 /*###########################################################################################################*/
@@ -46,7 +48,21 @@
 #define INCLUDE_MEXTI_INTERFACE_H_
 /*#########################################################################################################*/
 
+typedef enum
+{
+   MEXTI_RISING_EDGE = 0 ,
+   MEXTI_FALLING_EDGE    ,
+   MEXTI_ON_CHANGE       ,
+   MEXTI_SENSE_INVALID
+}EXTI_Sense_t ;
 
+ES_t       MEXTI_errInit(void)                       ;
+ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line)             ;
+ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line)            ;
+ES_t       MEXTI_errSetSoftwareExtiLine(u8 Copy_u8Line)        ;
+ES_t       MEXTI_errSetCallBackEXTI0(void (*PFunc) (void))                ;
+ES_t       MEXTI_errSetCallBackEXTI1(void (*PFunc) (void))                ;
+ES_t       MEXTI_errSetSenseLevel(u8 Copy_u8Line , EXTI_Sense_t Copy_uddtSenseType)              ;
 
 
 /*************************************************************************************************************/
