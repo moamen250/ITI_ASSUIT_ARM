@@ -47,13 +47,13 @@ typedef enum
 /*                          Function Prototypes                           */
 /**************************************************************************/
 
-HBUZ_ErrStatus_t HBUZZ_errInt(BUZZ_PORT_t Copy_uddtPortNum,BUZZ_NUM_t Copy_uddtBuzzNum);
+ES_t HBUZZ_errInt(BUZZ_PORT_t Copy_uddtPortNum,BUZZ_NUM_t Copy_uddtBuzzNum);
 
-HBUZ_ErrStatus_t HBUZZ_errOn(BUZZ_PORT_t Copy_uddtPortNum,BUZZ_NUM_t Copy_uddtBuzzNum);
+ES_t HBUZZ_errOn(BUZZ_PORT_t Copy_uddtPortNum,BUZZ_NUM_t Copy_uddtBuzzNum);
 
-HBUZ_ErrStatus_t HBUZZ_errvOff(BUZZ_PORT_t Copy_uddtPortNum,BUZZ_NUM_t Copy_uddtBuzzNum);
+ES_t HBUZZ_errvOff(BUZZ_PORT_t Copy_uddtPortNum,BUZZ_NUM_t Copy_uddtBuzzNum);
 
-HBUZ_ErrStatus_t HBUZZ_errFlip(BUZZ_PORT_t Copy_uddtPortNum,BUZZ_NUM_t Copy_uddtBuzzNum,u8 copy_u8NumTone);
+ES_t HBUZZ_errFlip(BUZZ_PORT_t Copy_uddtPortNum,BUZZ_NUM_t Copy_uddtBuzzNum,u8 copy_u8NumTone);
 
 
 #endif /* HBUZ_INTERFACE_H_ */
