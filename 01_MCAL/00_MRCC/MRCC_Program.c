@@ -101,6 +101,21 @@ ES_t MRCC_errInitSystemClk(void)
 
 #elif MRCC_CLKSRC == MRCC_PLL
 	/****************** PLL ********************/
+	/* 	   1- Set HSION bit
+		   2- Reset CFGR register
+		   3- Reset HSEON, CSSON and PLLON bits 
+		   4- Reset PLLCFGR register
+		   5- Reset HSEBYP bit 
+		   6- Disable all interrupts          */
+		   
+		   
+		   MRCC_CR |= (uint32_t)0x00000001;
+		   MRCC_CFGR  = 0x00000000;
+		   MRCC_CR &= (uint32_t)0xFEF6FFFF;
+		   MRCC_PLLCFGR = 0x24003010;
+		   MRCC_CR &= (uint32_t)0xFFFBFFFF;
+		   MRCC_CIR = 0x00000000;
+		   
 #endif
     return LOC_uddtState ;
 
