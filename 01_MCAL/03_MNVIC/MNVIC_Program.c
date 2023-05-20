@@ -33,12 +33,26 @@
 /*                 MNVIC Functions implementation                         */
 /**************************************************************************/
 
-
 static MNVIC_SysPriority_t GLB_uddtSysPriority ;
+/****************************************************************************************/
+/* @brief : This Function Used To Initialize Software Priority                         */
+/* @param : Copy_uddtPriorityOption -> This Parameter Make User Choose Priority Option */
+/* @return: This Function Return Error State                                            */
+/****************************************************************************************/
 ES_t MNVIC_errInitSoftwareSystemPriority(MNVIC_SysPriority_t Copy_uddtPriorityOption)
 {
+	ES_t LOC_ErrState = ES_OK;
+
 	GLB_uddtSysPriority  = Copy_uddtPriorityOption ;
-	//TODO   -> Mariam
+	// Clear the priority grouping bits
+	// 0x700UL is a bit mask used to clear the priority grouping bits in the AIRCR.
+	MSCB_AIRCR &= ~(0x700UL);
+	// Set the priority grouping bits
+	MSCB_AIRCR |= ((u32)GLB_uddtSysPriority << 8);
+	// Set the VECTKEY to enable writes to the register
+	MSCB_AIRCR |= VECTKEY ;
+
+	return LOC_ErrState;
 }
 
 // Error state -> Yahya
@@ -64,6 +78,6 @@ ES_t MNVIC_errIsInterruptActive(u8 Copy_u8IntIndex , u8* Copy_pu8ActiveStatus)
 }
 ES_t MNVIC_errSetInterruptPriority(u8 Copy_u8IntIndex ,MNVIC_GPriority_t Copy_uddtGPriority ,MNVIC_SUBPriority_t  Copy_uddtSubGPriority )
 {
-	 // use this variable GLB_uddtSysPriority EX = 3 -> 16G , 0SG
+	// use this variable GLB_uddtSysPriority EX = 3 -> 16G , 0SG
 	//TODO  --> Mina
 }
