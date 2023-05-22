@@ -107,10 +107,54 @@ ES_t       MEXTI_errSetCallBackEXTI1(void (*PFunc) (void))
 {
 // TODO  -> Mohamed Said
 }
-ES_t       MEXTI_errSetSenseLevel(u8 Copy_u8Line , EXTI_Sense_t Copy_uddtSenseType)
+ES_t       MEXTI_errSetSenseLevel(EXTI_LINE_t Copy_uddtLine , EXTI_Sense_t Copy_uddtSenseType)
 {
-// TODO    -> Ahmed Reda
+//DONE___| Ahmed Reda:  
+    ES_t Local_uddtSenseErr =ES_OK ;
+    
+    /* check if the entered EXTI line is within the valid range (Lin0_Line15) */
+    if (Copy_uddtLine> EXTI_INVALID_LINE)
+    {
+        Local_uddtSenseErr=ES_OUT_OF_RANGE_EXTI_LINES;
+    }
+    else
+    {
+        /* Disable EXTI line interrupts to change sensing level. */
+        CLR_BIT(MEXTI->IMR , Copy_uddtLine ) ;
+    
+        switch(Copy_uddtSenseType)
+        {
+            case MEXTI_RISING_EDGE:
+                /* Set rising edge trigger for the EXTI line */
+                SET_BIT(MEXTI->RTSR , Copy_uddtLine ) ;
+                CLR_BIT(MEXTI->FTSR , Copy_uddtLine ) ;
+                break;
+
+            case MEXTI_FALLING_EDGE:
+                /* Set falling edge trigger for the EXTI line */
+                CLR_BIT(MEXTI->RTSR , Copy_uddtLine ) ;
+                SET_BIT(MEXTI->FTSR , Copy_uddtLine ) ;
+                break;
+
+            case MEXTI_ON_CHANGE:
+                /* Set On change trigger for the EXTI line */
+                SET_BIT(MEXTI->RTSR , Copy_uddtLine ) ;
+                SET_BIT(MEXTI->FTSR , Copy_uddtLine ) ;
+                break;
+
+            default:
+                Local_uddtSenseErr = ES_INVALID_EXTI_SENSE_LEVEL;
+                break;
+        }
+
+        /* Enable EXTI line interrupts again after set new sensing level. */
+        SET_BIT(MEXTI->IMR , Copy_uddtLine ) ;
+    }
+    
+    return Local_uddtSenseErr;
 }
+
+
 
 
 void EXTI0_IRQHandler(void)

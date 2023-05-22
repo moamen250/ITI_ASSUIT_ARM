@@ -74,7 +74,8 @@ typedef enum
 	EXTI_LINE12  ,
 	EXTI_LINE13  ,
 	EXTI_LINE14  ,
-	EXTI_LINE15
+	EXTI_LINE15  ,
+	EXTI_INVALID_LINE
 }EXTI_LINE_t;
 
 ES_t       MEXTI_errInit(void)                       ;
@@ -83,7 +84,7 @@ ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)            
 ES_t       MEXTI_errSetSoftwareExtiLine(u8 Copy_u8Line)        ;
 ES_t       MEXTI_errSetCallBackEXTI0(void (*PFunc) (void))                ;
 ES_t       MEXTI_errSetCallBackEXTI1(void (*PFunc) (void))                ;
-ES_t       MEXTI_errSetSenseLevel(u8 Copy_u8Line , EXTI_Sense_t Copy_uddtSenseType)              ;
+ES_t       MEXTI_errSetSenseLevel(EXTI_LINE_t Copy_u8Line , EXTI_Sense_t Copy_uddtSenseType)              ;
 
 
 /*************************************************************************************************************/
