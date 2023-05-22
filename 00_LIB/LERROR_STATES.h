@@ -26,11 +26,12 @@ typedef enum
 	ES_NOK,                 //The function dosen't work successfully
 	ES_OK ,                 //The function done successfully
 	ES_OUT_OF_RANGE_PIN,    //The user enter number of PIN more than PORT PINs    or negative number
-    ES_OUT_OF_RANGE_PORT,   //The user enter number of PORT more than MC PORTs  or negative number
+	ES_OUT_OF_RANGE_PORT,   //The user enter number of PORT more than MC PORTs  or negative number
+	ES_OUT_OF_RANGE_PRE_INT,//The user enter number of INT more than PRE INT or negative number
 	ES_WRONG_PINs_VALUE,    //The user enter wrong value to assign group of PINs      or negative value
 	ES_WRONG_MODE_VALUE,    //The user enter wrong value to configure specific mode or negative value
 	ES_INVALID_PIN_SPEED,
-	ES_NULL_POINTER         //The user enter  NULL pointer  ,  detect it before accessing  it
+	ES_NULL_POINTER,         //The user enter  NULL pointer  ,  detect it before accessing  it
 }ES_t ; 
 
 #endif 
