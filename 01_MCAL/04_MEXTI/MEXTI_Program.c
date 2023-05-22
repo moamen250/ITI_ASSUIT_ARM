@@ -29,14 +29,55 @@ ES_t       MEXTI_errInit(void)
 {
 // TODO -> Ghada with config File
 }
-ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line)
+ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)
 {
-// TODO  -> Kirllos
+	u8 Local_u8RegIndex = 0;
+	
+	if (Copy_u8Line > MAXEXTILINES) {
+		return ES_NOK; 
+	}else if (Copy_u8Line <= 3){
+		Local_u8RegIndex = 0;
+	}else if (Copy_u8Line <= 7){
+		Local_u8RegIndex = 1;
+		Copy_u8Port -= 4;
+	}else if (Copy_u8Line <= 11){
+		Local_u8RegIndex = 2;
+		Copy_u8Port -= 8;
+	}else if (Copy_u8Line <= 15){
+		Local_u8RegIndex = 3;
+		Copy_u8Port -= 12;
+	}
+	
+	EXTI -> EXTICR[Copy_u8Line] &~ = ((0b1111) << ((Copy_u8Line*4));
+	EXTI -> EXTICR[Copy_u8Line] |= ((Copy_u8Port) << ((Copy_u8Line*4));
+	SET_BIT(MEXTI -> IMR , Copy_u8Line);
+	return ES_OK;	
 }
 
-ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line)            ;
+ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)            
 {
-	// TODO  -> Kirllos
+	u8 Local_u8RegIndex = 0;
+	
+	if (Copy_u8Line > MAXEXTILINES) {
+		return ES_NOK; 
+	}else if (Copy_u8Line <= 3){
+		Local_u8RegIndex = 0;
+	}else if (Copy_u8Line <= 7){
+		Local_u8RegIndex = 1;
+		Copy_u8Port -= 4;
+	}else if (Copy_u8Line <= 11){
+		Local_u8RegIndex = 2;
+		Copy_u8Port -= 8;
+	}else if (Copy_u8Line <= 15){
+		Local_u8RegIndex = 3;
+		Copy_u8Port -= 12;
+	}
+	
+	EXTI -> EXTICR[Copy_u8Line] &~ = ((0b1111) << ((Copy_u8Line*4));
+	
+	CLR_BIT(MEXTI -> IMR , Copy_u8Line);
+	
+	return ES_OK;
 }
 ES_t       MEXTI_errSetSoftwareExtiLine(u8 Copy_u8Line)
 {
