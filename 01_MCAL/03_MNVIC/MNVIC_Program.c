@@ -60,9 +60,9 @@ ES_t MNVIC_errClearPeningInterrupt(u8 Copy_u8IntIndex)
 }
 ES_t MNVIC_errIsInterruptActive(u8 Copy_u8IntIndex , u8* Copy_pu8ActiveStatus)
 {
-	//TODO   --> Ahmed Reda
+	*Copy_pu8ActiveStatus=((MNVIC->IABR[Copy_u8IntIndex / 32])  >>( (Copy_u8IntIndex %32))&1);
 }
-  
+
   /*****************************************************************************************************************************************/
   /*                                    07- MNVIC_errSetInterruptPriority                                                                  */
   /*                                    Wtitten By : MINA NABIL BADEE                                                                      */
