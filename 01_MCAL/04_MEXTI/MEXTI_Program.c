@@ -25,9 +25,25 @@
 /***********************************************************************************************************/
 
 
-ES_t       MEXTI_errInit(void)
+ES_t   MEXTI_errInit(void)
 {
 // TODO -> Ghada with config File
+       ES_t Loc_State=ES_OK;
+#if    EXT_INT_LEVEL==MEXTI_RISING_EDGE
+       SET_BIT(MEXTI->RTSR ,EXT_INT_LINE_NUM ) ;
+       CLR_BIT(MEXTI->FTSR ,EXT_INT_LINE_NUM ) ;
+
+#elif  EXT_INT_LEVEL==MEXTI_FALLING_EDGE
+       SET_BIT(MEXTI->FTSR ,EXT_INT_LINE_NUM ) ;
+       CLR_BIT(MEXTI->RTSR , EXT_INT_LINE_NUM ) ;
+
+#elif  EXT_INT_LEVEL==MEXTI_ON_CHANGE
+       SET_BIT(MEXTI->RTSR , EXT_INT_LINE_NUM ) ;
+       SET_BIT(MEXTI->FTSR ,EXT_INT_LINE_NUM ) ;
+#else
+       ES_t Loc_State=ES_NOK;
+#endif
+      return Loc_State;
 }
 ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)
 {

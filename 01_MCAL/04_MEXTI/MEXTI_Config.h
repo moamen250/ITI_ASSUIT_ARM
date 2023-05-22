@@ -14,8 +14,41 @@
 #define INCLUDE_MEXTI_CONFIG_H_
 /*#########################################################################################################*/
 
+/*
+ * owner :ghada mahmoud
+ * choose external interrupt level trigger:
+ *                                1)MEXTI_RISING_EDGE
+ *                                2)MEXTI_FALLING_EDGE
+ *                                3)MEXTI_ON_CHANGE
+ *
+ *
+ */
+#define EXT_INT_LEVEL       MEXTI_RISING_EDGE
+/*
+ * owner :ghada mahmoud
+ * choose external interrupt line
+ *
+ *                        EXTI_LINE0
+ *	                      EXTI_LINE1
+ *	                      EXTI_LINE2
+ *	                      EXTI_LINE3
+ *                        EXTI_LINE4
+ *	                      EXTI_LINE5
+ *                        EXTI_LINE6
+ *	                      EXTI_LINE7
+ *	                      EXTI_LINE8
+ *	                      EXTI_LINE9
+ *	                      EXTI_LINE10
+ *	                      EXTI_LINE11
+ *	                      EXTI_LINE12
+ *	                      EXTI_LINE13
+ *	                      EXTI_LINE14
+ *	                      EXTI_LINE15
+ *
+ */
 
 
+#define EXT_INT_LINE_NUM        EXTI_LINE0
 
 /***********************************************************************************************************/
 /*                                   THE END OF DIFINITION                                                 */
