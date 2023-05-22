@@ -33,7 +33,11 @@
 /*                 MNVIC Functions implementation                         */
 /**************************************************************************/
 
-
+/****************************************************************************************/
+/* @brief : This Function Used To Initialize Software Priority                          */
+/* @param : Copy_uddtPriorityOption -> This Parameter Make User Choose Priority Option  */
+/* @return: This Function Return Error State                                            */
+/****************************************************************************************/
 static MNVIC_SysPriority_t GLB_uddtSysPriority ;
 ES_t MNVIC_errInitSoftwareSystemPriority(MNVIC_SysPriority_t Copy_uddtPriorityOption)
 {
@@ -41,12 +45,13 @@ ES_t MNVIC_errInitSoftwareSystemPriority(MNVIC_SysPriority_t Copy_uddtPriorityOp
 	if(Copy_u8IntIndex < MNVIC_INVALID_Priority)
 	{
 	GLB_uddtSysPriority  = Copy_uddtPriorityOption ;
-	//TODO   -> Mariam
 	}
 	else{
 		LOC_uddtState = ES_WRONG_MODE_VALUE ;
 	}
 	return LOC_uddtState;
+
+	MSCB_AIRCR = VECTKEY |((u32)GLB_uddtSysPriority << 8);
 }
 
 
