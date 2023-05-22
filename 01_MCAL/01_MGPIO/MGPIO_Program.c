@@ -239,9 +239,32 @@ ES_t MGPIO_errSetPinLock( MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Co
 {
 	//TODO
 }
-ES_t MGPIO_errSetOrResetPinAtomic(MGPIO_uddtPortNum Copy_uddtPortNum,u32 MGPIO_Pin_Value)
+
+/****************************************************************************************************************************/
+/*                           08_ ES_t MGPIO_errSetOrResetPinAtomic                                                          */
+/*                            Written By : MINA NABIL BDEE                                                                  */
+/*--------------------------------------------------------------------------------------------------------------------------*/
+/* 1- Function Description -> Set and rest pin in atomic access                                                             */
+/* 2- Function Input       ->                                                                                               */
+/*                     @param Copy_uddtPortNum                                                                              */
+/*                     @param MGPIO_Pin_Value                                                                               */
+/*                     @param Copy_uddtPinState                                                                             */
+/* 3- Function Return      -> @return  ES_t                                                                                 */
+/*       [ ES_OK ,  ES_NOK , ES_OUT_OF_RANGE_PIN, ES_OUT_OF_RANGE_PORT ]                                                    */
+/*                           	                                                                                            */
+/****************************************************************************************************************************/
+ES_t MGPIO_errSetOrResetPinAtomic(MGPIO_uddtPortNum Copy_uddtPortNum,u32 MGPIO_Pin_Value,MGPIO_uddtPinState Copy_uddtPinState)
 {
-	//TODO
+	ES_t LOC_uddtState= ES_OK;
+	if(Copy_uddtPortNum >=MGPIO_INVALID_PORT)   {LOC_uddtState =ES_OUT_OF_RANGE_PORT;}
+	if(Copy_uddtPinNum  >=MGPIO_INVALID_PIN)    {LOC_uddtState =ES_OUT_OF_RANGE_PIN ;}
+	switch(Copy_uddtPinState)
+	{
+	case    MGPIO_PIN_SET_ATOMIC   :GPIOx_REG(Copy_uddtPortNum)->BSRR = (1<<Copy_uddtPinNum     )   ;  break;
+	case    MGPIO_PIN_RESET_ATOMIC :GPIOx_REG(Copy_uddtPortNum)->BSRR = (1<<(Copy_uddtPinNum+16))   ;  break;
+	default : LOC_uddtState = ES_WRONG_PINs_VALUE                                                   ;break;
+	}
+	return LOC_uddtState;
 }
 ES_t MGPIO_errSetPinAltFun(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,u8 GPIO_AFSelection )
 {

@@ -54,7 +54,15 @@ typedef enum
 	MGPIO_INVALID_PORT
 }MGPIO_uddtPortNum;
 
-
+/**************************************************************************/
+/*  Define Target PIN STATE FOR ACCESS IN ATOMIC MOOD SET OR RESET        */
+/**************************************************************************/
+typedef enum
+{
+	MGPIO_PIN_SET_ATOMIC = 0 ,
+	MGPIO_PIN_RESET_ATOMIC   ,
+	WRONG_PIN_STATE
+}MGPIO_uddtPinState;
 /**************************************************************************/
 /*                          Define Target PIN                             */
 /**************************************************************************/
