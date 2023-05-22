@@ -12,6 +12,8 @@
 #define  MSTK_BASE_ADDRESS   0xE000E010
 
 #define MSTK_RESOLUTION           16777216(UL)
+#define AHB    0
+#define AHB_8  1
 
 typedef struct
 {
