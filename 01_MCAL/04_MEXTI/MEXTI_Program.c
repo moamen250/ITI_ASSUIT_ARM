@@ -24,6 +24,8 @@
 /*                                      MEXTI  Functions implementation                                    */
 /***********************************************************************************************************/
 
+void (*EXTI0_PFunk_CallBack)(void);
+void (*EXTI1_PFunk_CallBack)(void);
 
 ES_t   MEXTI_errInit(void)
 {
@@ -101,11 +103,11 @@ ES_t       MEXTI_errSetSoftwareExtiLine(u8 Copy_u8Line)
 }
 ES_t       MEXTI_errSetCallBackEXTI0(void (*PFunc) (void))
 {
-// TODO  -> Mohamed Said
+	EXTI0_PFunk_CallBack=PFunc;
 }
 ES_t       MEXTI_errSetCallBackEXTI1(void (*PFunc) (void))
 {
-// TODO  -> Mohamed Said
+	EXTI1_PFunk_CallBack=PFunc;
 }
 ES_t       MEXTI_errSetSenseLevel(u8 Copy_u8Line , EXTI_Sense_t Copy_uddtSenseType)
 {
@@ -115,11 +117,12 @@ ES_t       MEXTI_errSetSenseLevel(u8 Copy_u8Line , EXTI_Sense_t Copy_uddtSenseTy
 
 void EXTI0_IRQHandler(void)
 {
-	// TODO  -> Mohamed Said
+	EXTI0_PFunk_CallBack();
 
 }
 void EXTI1_IRQHandler(void)
 {
-	// TODO  -> Mohamed Said
+	EXTI1_PFunk_CallBack();
 
 }
+
