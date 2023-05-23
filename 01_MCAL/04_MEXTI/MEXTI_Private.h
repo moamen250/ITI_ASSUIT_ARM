@@ -70,17 +70,17 @@ typedef struct
 
 typedef struct 
 {
-	volatile u32 RESERVED1 ;
-	volatile u32 RESERVED2 ;
+	volatile u32 EVCR ;
 	volatile u32 EXTICR [4] ;
-}EXTICR_t;
+	volatile u32 MAPR ;
+}EXTICR_x_t;
 
 
 /***********************************************************************************************************/
 /*                                       EXTICR Registers pointer                                          */
 /***********************************************************************************************************/
 
-#define EXTI             ((EXTICR_t *)((0x40010000))
+#define EXTI             ((EXTICR_x_t *)(0x40010000))
 #define A 				    0000
 #define B 					0001
 #define C 					0010
