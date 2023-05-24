@@ -95,9 +95,29 @@ ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)
 	
 	return ES_OK;
 }
-ES_t       MEXTI_errSetSoftwareExtiLine(u8 Copy_u8Line)
+/***********************************************************************************************************/
+/*                                         03_ MEXTI_errSetSoftwareExtiLine                                */
+/*                                           @Written by : Moussa Mokhlef                                  */
+/***********************************************************************************************************/
+/* 1- Function Description                                                                                 */
+/*               @brief : SET INTERRUPT BY SOFTWARE                                                        */
+/* 2- Function Input                                                                                       */
+/*               @param : Copy_uddtExit_Inter_Num                                                          */
+/* 3- Function Return                                                                                      */
+/*               @return Error status of the function                                                      */
+/*                              (E_OK)  : The function done successfully                                   */
+/*                              (ES_NOK : The function doesn't done successfully                           */
+/***********************************************************************************************************/
+ES_t     MEXTI_errSetSoftwareExtiLine(EXTI_INTR_N  Copy_uddtExit_Inter_Num)
 {
 // TODO -> Mousa
+	ES_t Local_ErrorState = ES_OK ;
+	if(Copy_uddtExit_Inter_Num > EXTI_INTR_22 )
+	{
+		Local_ErrorState=ES_NOK;
+	}
+	SET_BIT(MEXTI->SWIER,Copy_uddtExit_Inter_Num)  ;
+	return Local_ErrorState;
 }
 ES_t       MEXTI_errSetCallBackEXTI0(void (*PFunc) (void))
 {
