@@ -117,6 +117,7 @@ ES_t MNVIC_errIsInterruptActive(u8 Copy_u8IntIndex , u8* Copy_pu8ActiveStatus)
 	*Copy_pu8ActiveStatus=((MNVIC->IABR[Copy_u8IntIndex / 32])  >>( (Copy_u8IntIndex %32))&1);
 }
 
+
   /*****************************************************************************************************************************************/
   /*                                    07- MNVIC_errSetInterruptPriority                                                                  */
   /*                                    Wtitten By : MINA NABIL BADEE                                                                      */
@@ -124,24 +125,26 @@ ES_t MNVIC_errIsInterruptActive(u8 Copy_u8IntIndex , u8* Copy_pu8ActiveStatus)
   /* 1- Function Description                                                                                                               */
   /*                        @brief:set the interrupt priority by setting prephiral index from 0 - 239                                      */
   /*                       and num of group from 0 - 15 and num of subgroup from 0 -15                                                     */
-  /* 2- Function Input                                                                                                                     */                                        */
+  /* 2- Function Input                                                                                                                     */
   /*               @param : Copy_u8IntIndex prephiral index                                                                                */                     
-  /*               @param : Copy_uddtGPriority  number groups          @ref : MNVIC_GPriority_t                                            */                                             */
+  /*               @param : Copy_uddtGPriority  number groups          @ref : MNVIC_GPriority_t                                            */
   /*               @param :Copy_uddtSubGPriority number of subgroups   @ref :    MNVIC_SUBPriority_t                                       */
-  /* 3- Function Return                                                                                                                    */                        */
-  /*               @return Error status of the function                                                                                    */                       */
+  /* 3- Function Return                                                                                                                    */
+  /*               @return Error status of the function                                                                                    */
   /*                              (E_OK) : The function done successfully                                                                  */
   /*                              (ES_OUT_OF_RANGE_PRE_INT) : The user enter invalid prephiral index < 0 and >239                          */
-  /*                              (MNVIC_INVALID_Priority)  : The user enter invalid priority < MNVIC_G16_S0 = 3 and > MNVIC_G0_S16=7      */                                         */
+  /*                              (MNVIC_INVALID_Priority)  : The user enter invalid priority < MNVIC_G16_S0 = 3 and > MNVIC_G0_S16=7      */
   /*                              (MNVIC_GROUP_INVALID) : The user enter number of group > 15                                              */
   /*                              (MNVIC_SUBGROUP_INVALID) : The user enter number of group > 15                                           */
   /*****************************************************************************************************************************************/
 
+
 ES_t MNVIC_errSetInterruptPriority(u8 Copy_u8IntIndex ,MNVIC_GPriority_t Copy_uddtGPriority ,MNVIC_SUBPriority_t  Copy_uddtSubGPriority )
 
-	
+{
 	ES_t LOC_uddtState = ES_OK;
-	if( (u8)GLB_uddtSysPriority > MNVIC_G0_S16){LOC_uddtState=ES_WRONG_MODE_VALUE;}
+
+	if((u8)(GLB_uddtSysPriority) > (MNVIC_G0_S16)){LOC_uddtState=ES_WRONG_MODE_VALUE;}
 		
 
 	else
@@ -169,7 +172,7 @@ ES_t MNVIC_errSetInterruptPriority(u8 Copy_u8IntIndex ,MNVIC_GPriority_t Copy_ud
 			case MNVIC_G4_S4:
 			
 			if((u8)(Copy_uddtGPriority) > MNVIC_GROUP_PRI3){LOC_uddtState=ES_WRONG_MODE_VALUE;}
-		    else if((u8)(Copy_uddtSubGPriority) > MNVIC_SUBGROUP_PRI3){LOC_uddtState= ;}
+		    else if((u8)(Copy_uddtSubGPriority) > MNVIC_SUBGROUP_PRI3){LOC_uddtState=ES_WRONG_MODE_VALUE ;}
 			else {MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtSubGPriority))<<4;}
 			break;
 			
