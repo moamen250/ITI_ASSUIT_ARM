@@ -64,8 +64,8 @@ ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)
 		Copy_u8Port -= 12;
 	}
 	
-	EXTI -> EXTICR[Copy_u8Line] &~ = ((0b1111) << ((Copy_u8Line*4));
-	EXTI -> EXTICR[Copy_u8Line] |= ((Copy_u8Port) << ((Copy_u8Line*4));
+	EXTI -> EXTICR[Copy_u8Line] &= ~((0b1111) << (Copy_u8Line*4));
+	EXTI -> EXTICR[Copy_u8Line] |= ((Copy_u8Port) << (Copy_u8Line*4));
 	SET_BIT(MEXTI -> IMR , Copy_u8Line);
 	return ES_OK;	
 }
@@ -89,7 +89,7 @@ ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)
 		Copy_u8Port -= 12;
 	}
 	
-	EXTI -> EXTICR[Copy_u8Line] &~ = ((0b1111) << ((Copy_u8Line*4));
+	EXTI -> EXTICR[Copy_u8Line] &= ~((0b1111) << (Copy_u8Line*4));
 	
 	CLR_BIT(MEXTI -> IMR , Copy_u8Line);
 	
