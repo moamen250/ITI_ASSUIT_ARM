@@ -253,7 +253,7 @@ ES_t MGPIO_errSetPinLock( MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Co
 /*       [ ES_OK ,  ES_NOK , ES_OUT_OF_RANGE_PIN, ES_OUT_OF_RANGE_PORT ]                                                    */
 /*                           	                                                                                            */
 /****************************************************************************************************************************/
-ES_t MGPIO_errSetOrResetPinAtomic(MGPIO_uddtPortNum Copy_uddtPortNum,u32 MGPIO_Pin_Value,MGPIO_uddtPinState Copy_uddtPinState)
+ES_t MGPIO_errSetOrResetPinAtomic(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum,MGPIO_uddtPinState Copy_uddtPinState)
 {
 	ES_t LOC_uddtState= ES_OK;
 	if(Copy_uddtPortNum >=MGPIO_INVALID_PORT)   {LOC_uddtState =ES_OUT_OF_RANGE_PORT;}
