@@ -141,49 +141,49 @@ ES_t MNVIC_errSetInterruptPriority(u8 Copy_u8IntIndex ,MNVIC_GPriority_t Copy_ud
 
 	
 	ES_t LOC_uddtState = ES_OK;
-	if(GLB_uddtSysPriority < 3 || GLB_uddtSysPriority > MNVIC_G0_S16){LOC_uddtState=MNVIC_INVALID_Priority;}
+	if( (u8)GLB_uddtSysPriority > MNVIC_G0_S16){LOC_uddtState=ES_WRONG_MODE_VALUE;}
 		
 
 	else
 	{
-	    if(Copy_u8IntIndex < 0  || Copy_u8IntIndex > 239){LOC_uddtState=ES_OUT_OF_RANGE_PRE_INT;}
+	    if( Copy_u8IntIndex >= BITS_PER_INT_MASK){LOC_uddtState=ES_OUT_OF_RANGE_PRE_INT;}
 		else {
 		MNVIC->IPR[Copy_u8IntIndex]=0;
 		switch(GLB_uddtSysPriority){
 			//in case of GLB_uddtSysPriority =MNVIC_G16_S0 -->   G=16   SG=0
 			case MNVIC_G16_S0:
 			
-			if(Copy_uddtGPriority < 0 || Copy_uddtGPriority > 15) {LOC_uddtState=MNVIC_GROUP_INVALID;}
-			else{ MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtGPriority))<<4;}
+			if( (u8)Copy_uddtGPriority > MNVIC_GROUP_PRI15) {LOC_uddtState=ES_WRONG_MODE_VALUE;}
+			else{ MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtSubGPriority))<<4;}
 			break;
 			//in case of GLB_uddtSysPriority =MNVIC_G8_S2 -->   G=8   SG=2
 			case MNVIC_G8_S2:
 			
-			if((Copy_uddtGPriority < 0) || (Copy_uddtGPriority > 7)){LOC_uddtState=MNVIC_GROUP_INVALID;}
-            else if((Copy_uddtSubGPriority < 0) || (Copy_uddtSubGPriority > 1)){LOC_uddtState=MNVIC_SUBGROUP_INVALID;}
-			else{MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtGPriority))<<4;}
+			if((u8)(Copy_uddtGPriority) > MNVIC_GROUP_PRI7){LOC_uddtState=ES_WRONG_MODE_VALUE;}
+            else if( (u8)(Copy_uddtSubGPriority) > MNVIC_SUBGROUP_PRI1){LOC_uddtState=ES_WRONG_MODE_VALUE;}
+			else{MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtSubGPriority))<<4;}
 			break;
 			
 			//in case of GLB_uddtSysPriority =MNVIC_G4_S4 -->   G=4   SG=4
 
 			case MNVIC_G4_S4:
 			
-			if((Copy_uddtGPriority < 0) || (Copy_uddtGPriority > 3)){LOC_uddtState=MNVIC_GROUP_INVALID;}
-		    else if((Copy_uddtSubGPriority < 0) || (Copy_uddtSubGPriority > 1)){LOC_uddtState=MNVIC_SUBGROUP_INVALID;}
-			else {MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtGPriority))<<4;}
+			if((u8)(Copy_uddtGPriority) > MNVIC_GROUP_PRI3){LOC_uddtState=ES_WRONG_MODE_VALUE;}
+		    else if((u8)(Copy_uddtSubGPriority) > MNVIC_SUBGROUP_PRI3){LOC_uddtState= ;}
+			else {MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtSubGPriority))<<4;}
 			break;
 			
 			//in case of GLB_uddtSysPriority =MNVIC_G2_S8 -->   G=2   SG=8
 			case MNVIC_G2_S8:
 			
-			if((Copy_uddtGPriority < 0) || (Copy_uddtGPriority > 1)){LOC_uddtState=MNVIC_GROUP_INVALID;}
-			else if((Copy_uddtSubGPriority < 0) || (Copy_uddtSubGPriority > 7)){LOC_uddtState=MNVIC_SUBGROUP_INVALID;}
-			else {MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtGPriority))<<4;}
+			if((u8)(Copy_uddtGPriority) > MNVIC_GROUP_PRI1){LOC_uddtState=ES_WRONG_MODE_VALUE;}
+			else if((u8)(Copy_uddtSubGPriority) > MNVIC_SUBGROUP_PRI7){LOC_uddtState=ES_WRONG_MODE_VALUE;}
+			else {MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtSubGPriority))<<4;}
 			break;
 			//in case of GLB_uddtSysPriority =MNVIC_G0_S16 -->   G=0   SG=16
 			case MNVIC_G0_S16:
-			if(Copy_uddtSubGPriority < 0 || Copy_uddtSubGPriority > 15) {LOC_uddtState=MNVIC_SUBGROUP_INVALID;}
-			else {MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtGPriority))<<4;}
+			if((u8)(Copy_uddtSubGPriority) > MNVIC_SUBGROUP_PRI15) {LOC_uddtState=ES_WRONG_MODE_VALUE;}
+			else {MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtSubGPriority))<<4;}
 			break;
 			
 		}
