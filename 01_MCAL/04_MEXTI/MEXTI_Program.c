@@ -24,45 +24,169 @@
 /*                                      MEXTI  Functions implementation                                    */
 /***********************************************************************************************************/
 
+void (*EXTI0_PFunk_CallBack)(void);
+void (*EXTI1_PFunk_CallBack)(void);
 
-ES_t       MEXTI_errInit(void)
+ES_t   MEXTI_errInit(void)
 {
 // TODO -> Ghada with config File
+       ES_t Loc_State=ES_OK;
+#if    EXT_INT_LEVEL==MEXTI_RISING_EDGE
+       SET_BIT(MEXTI->RTSR ,EXT_INT_LINE_NUM ) ;
+       CLR_BIT(MEXTI->FTSR ,EXT_INT_LINE_NUM ) ;
+
+#elif  EXT_INT_LEVEL==MEXTI_FALLING_EDGE
+       SET_BIT(MEXTI->FTSR ,EXT_INT_LINE_NUM ) ;
+       CLR_BIT(MEXTI->RTSR , EXT_INT_LINE_NUM ) ;
+
+#elif  EXT_INT_LEVEL==MEXTI_ON_CHANGE
+       SET_BIT(MEXTI->RTSR , EXT_INT_LINE_NUM ) ;
+       SET_BIT(MEXTI->FTSR ,EXT_INT_LINE_NUM ) ;
+#else
+       ES_t Loc_State=ES_NOK;
+#endif
+      return Loc_State;
 }
-ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line)
+ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)
 {
-// TODO  -> Kirllos
+	u8 Local_u8RegIndex = 0;
+	
+	if (Copy_u8Line > MAXEXTILINES) {
+		return ES_NOK; 
+	}else if (Copy_u8Line <= 3){
+		Local_u8RegIndex = 0;
+	}else if (Copy_u8Line <= 7){
+		Local_u8RegIndex = 1;
+		Copy_u8Port -= 4;
+	}else if (Copy_u8Line <= 11){
+		Local_u8RegIndex = 2;
+		Copy_u8Port -= 8;
+	}else if (Copy_u8Line <= 15){
+		Local_u8RegIndex = 3;
+		Copy_u8Port -= 12;
+	}
+	
+	EXTI -> EXTICR[Copy_u8Line] &= ~((0b1111) << (Copy_u8Line*4));
+	EXTI -> EXTICR[Copy_u8Line] |= ((Copy_u8Port) << (Copy_u8Line*4));
+	SET_BIT(MEXTI -> IMR , Copy_u8Line);
+	return ES_OK;	
 }
 
-ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line)            ;
+ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)            
 {
-	// TODO  -> Kirllos
+	u8 Local_u8RegIndex = 0;
+	
+	if (Copy_u8Line > MAXEXTILINES) {
+		return ES_NOK; 
+	}else if (Copy_u8Line <= 3){
+		Local_u8RegIndex = 0;
+	}else if (Copy_u8Line <= 7){
+		Local_u8RegIndex = 1;
+		Copy_u8Port -= 4;
+	}else if (Copy_u8Line <= 11){
+		Local_u8RegIndex = 2;
+		Copy_u8Port -= 8;
+	}else if (Copy_u8Line <= 15){
+		Local_u8RegIndex = 3;
+		Copy_u8Port -= 12;
+	}
+	
+	EXTI -> EXTICR[Copy_u8Line] &= ~((0b1111) << (Copy_u8Line*4));
+	
+	CLR_BIT(MEXTI -> IMR , Copy_u8Line);
+	
+	return ES_OK;
 }
-ES_t       MEXTI_errSetSoftwareExtiLine(u8 Copy_u8Line)
+/***********************************************************************************************************/
+/*                                         03_ MEXTI_errSetSoftwareExtiLine                                */
+/*                                           @Written by : Moussa Mokhlef                                  */
+/***********************************************************************************************************/
+/* 1- Function Description                                                                                 */
+/*               @brief : SET INTERRUPT BY SOFTWARE                                                        */
+/* 2- Function Input                                                                                       */
+/*               @param : Copy_uddtExit_Inter_Num                                                          */
+/* 3- Function Return                                                                                      */
+/*               @return Error status of the function                                                      */
+/*                              (E_OK)  : The function done successfully                                   */
+/*                              (ES_NOK : The function doesn't done successfully                           */
+/***********************************************************************************************************/
+ES_t     MEXTI_errSetSoftwareExtiLine(EXTI_INTR_N  Copy_uddtExit_Inter_Num)
 {
 // TODO -> Mousa
+	ES_t Local_ErrorState = ES_OK ;
+	if(Copy_uddtExit_Inter_Num > EXTI_INTR_22 )
+	{
+		Local_ErrorState=ES_NOK;
+	}
+	SET_BIT(MEXTI->SWIER,Copy_uddtExit_Inter_Num)  ;
+	return Local_ErrorState;
 }
 ES_t       MEXTI_errSetCallBackEXTI0(void (*PFunc) (void))
 {
-// TODO  -> Mohamed Said
+	EXTI0_PFunk_CallBack=PFunc;
 }
 ES_t       MEXTI_errSetCallBackEXTI1(void (*PFunc) (void))
 {
-// TODO  -> Mohamed Said
+	EXTI1_PFunk_CallBack=PFunc;
 }
-ES_t       MEXTI_errSetSenseLevel(u8 Copy_u8Line , EXTI_Sense_t Copy_uddtSenseType)
+ES_t       MEXTI_errSetSenseLevel(EXTI_LINE_t Copy_uddtLine , EXTI_Sense_t Copy_uddtSenseType)
 {
-// TODO    -> Ahmed Reda
+//DONE___| Ahmed Reda:  
+    ES_t Local_uddtSenseErr =ES_OK ;
+    
+    /* check if the entered EXTI line is within the valid range (Lin0_Line15) */
+    if (Copy_uddtLine> EXTI_INVALID_LINE)
+    {
+        Local_uddtSenseErr=ES_OUT_OF_RANGE_EXTI_LINES;
+    }
+    else
+    {
+        /* Disable EXTI line interrupts to change sensing level. */
+        CLR_BIT(MEXTI->IMR , Copy_uddtLine ) ;
+    
+        switch(Copy_uddtSenseType)
+        {
+            case MEXTI_RISING_EDGE:
+                /* Set rising edge trigger for the EXTI line */
+                SET_BIT(MEXTI->RTSR , Copy_uddtLine ) ;
+                CLR_BIT(MEXTI->FTSR , Copy_uddtLine ) ;
+                break;
+
+            case MEXTI_FALLING_EDGE:
+                /* Set falling edge trigger for the EXTI line */
+                CLR_BIT(MEXTI->RTSR , Copy_uddtLine ) ;
+                SET_BIT(MEXTI->FTSR , Copy_uddtLine ) ;
+                break;
+
+            case MEXTI_ON_CHANGE:
+                /* Set On change trigger for the EXTI line */
+                SET_BIT(MEXTI->RTSR , Copy_uddtLine ) ;
+                SET_BIT(MEXTI->FTSR , Copy_uddtLine ) ;
+                break;
+
+            default:
+                Local_uddtSenseErr = ES_INVALID_EXTI_SENSE_LEVEL;
+                break;
+        }
+
+        /* Enable EXTI line interrupts again after set new sensing level. */
+        SET_BIT(MEXTI->IMR , Copy_uddtLine ) ;
+    }
+    
+    return Local_uddtSenseErr;
 }
+
+
 
 
 void EXTI0_IRQHandler(void)
 {
-	// TODO  -> Mohamed Said
+	EXTI0_PFunk_CallBack();
 
 }
 void EXTI1_IRQHandler(void)
 {
-	// TODO  -> Mohamed Said
+	EXTI1_PFunk_CallBack();
 
 }
+

@@ -27,19 +27,26 @@
 /**************************************************************************/
 
 
-ES_t MSTK_errInit(void)
+void MSTK_Init(void)
 {
     // ENABLE STK INT - Clock = AHB/8 - Disable STK > SYSCLK = 16 MHZ -> STK_Frq = 2 MHZ , 0.5 Micro second
-	MSTK->CTRL = 0x00000002 ;
+	//MSTK->CTRL = 0x00000002 ;
+#if CLKSOURCE ==AHB
+	SET_BIT(MSTK->CTRL,CLK_BIN);
+#elif CLKSOURCE ==AHB_8
+	CLR_BIT(MSTK->CTRL,CLK_BIN);
+#endif
 }
-ES_t MSTK_errTimerStart(void)
+void MSTK_TimerStart(void)
 {
 //TODO
+	SET_BIT(MSTK->CTRL,ENABLE_BIN);
+
 }
 void _delay_ms(u32 Copy_u32Time)
 {
    //Initialize timer
-	MSTK_errInit() ;
+	MSTK_Init() ;
    //Disable INT
    CLR_BIT(MSTK->CTRL, 1 ) ;
    // LOAD_REG
@@ -67,7 +74,7 @@ void _delay_ms(u32 Copy_u32Time)
 void _delay_us(u32 Copy_u32Time)
 {
   //Initialize timer
-	MSTK_errInit() ;
+	MSTK_Init() ;
    //Disable INT
    CLR_BIT(MSTK->CTRL, 1 ) ;
    // LOAD_REG

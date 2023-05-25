@@ -22,8 +22,8 @@ typedef enum
  MSTK_INT_ENABLE
 }MSTK_uddtINTState_t ;
 
-ES_t MSTK_errInit(void) ;
-ES_t MSTK_errTimerStart(void) ;
+void MSTK_Init(void) ;
+void MSTK_TimerStart(void) ;
 void _delay_ms(u32 Copy_u32Time)  ;
 void _delay_us(u32 Copy_u32Time)  ;
 

@@ -26,40 +26,25 @@
 /*              Object Like Macro For NVIC Base Address Registers              */
 /******************************************************************************/
 
-#define MNVIC_BASE_ADDRESS		(0xE000E100)
+#define MNVIC_BASE_ADDRESS                  (0xE000E100)
 
 /******************************************************************************/
-/*                         Macros of NVIC Register Map                         */
+/*                             NVIC   BIT- MASK                               */
 /******************************************************************************/
-
-///*ISER start from 0xE000E100*/
-//#define	NVIC_ISER0		(*((volatile u32*)(MNVIC_BASE_ADDRESS+0x000)))
-//#define	NVIC_ISER1		(*((volatile u32*)(MNVIC_BASE_ADDRESS+0x004))
-//
-///*ICER start from 0xE000E180*/
-//#define	NVIC_ICER0		(*((volatile u32*)(MNVIC_BASE_ADDRESS+0x080)))
-//#define	NVIC_ICER1		(*((volatile u32*)(MNVIC_BASE_ADDRESS+0x084)))
-//
-///*ISPR start from 0xE000E200*/
-//#define	NVIC_ISPR0		(*((volatile u32*)(MNVIC_BASE_ADDRESS+0x100)))
-//#define	NVIC_ISPR1		(*((volatile u32*)(MNVIC_BASE_ADDRESS+0x104)))
-//
-///*ICPR start from 0xE000E280*/
-//#define	NVIC_ICPR0		(*((volatile u32*)(MNVIC_BASE_ADDRESS+0x180)))
-//#define	NVIC_ICPR1		(*((volatile u32*)(MNVIC_BASE_ADDRESS+0x184)))
-//
-///*IABR start from 0xE000300*/
-//#define	NVIC_IABR0		(*((volatile u32*)(MNVIC_BASE_ADDRESS+0x200)))
-//#define	NVIC_IABR1		(*((volatile u32*)(MNVIC_BASE_ADDRESS+0x204)))
-//
-///*IPR start from 0xE000E400*/
-//#define	NVIC_IPR0  		 (*((volatile u32*)(MNVIC_BASE_ADDRESS+0x300)))
-//#define NVIC_IPR1        (*((volatile u32*)(MNVIC_BASE_ADDRESS+0x304)))
-//
-//#define NVIC_STIR        (*((volatile u32*)(MNVIC_BASE_ADDRESS+0xE00)))
-
-
-//-------------------------------------------------------------------------------
+#define  BITS_PER_INT_MASK                      85U
+/******************************************************************************/
+/*                              Macros Function                               */
+/******************************************************************************/
+#define Is_Valid_Intrrupt_Number( _IntIndex_ ) (((_IntIndex_)<(INT_I2C3_ER))     &&\
+                                               (((_IntIndex_)<(INT_ADC))         ||((_IntIndex_)>(INT_EXTI9_5)))&&\
+                                               (((_IntIndex_)<(INT_USART2))      ||((_IntIndex_)>(INT_EXTI15_10)))&&\
+                                               (((_IntIndex_)<(INT_DMA1_Stream7))||((_IntIndex_)>(INT_SDIO)))&&\
+                                               (((_IntIndex_)<(INT_SPI3))        ||((_IntIndex_)>(INT_DMA2_Stream0)))&&\
+                                               (((_IntIndex_)<(INT_DMA2_Stream4))||((_IntIndex_)>(INT_OTG_FS))))||\
+                                               (( _IntIndex_)==(INT_FPU))        ||((_IntIndex_)>(INT_SPI4))
+/******************************************************************************/
+/*                         Macros of NVIC Register Map                        */
+/******************************************************************************/
 
 typedef struct
 {
@@ -91,16 +76,16 @@ typedef struct
 
 #if(0)
 #define  NVIC_ISER0_BASE_Address                      0xE000E100
-#define  BASE_OFFSET                                             0x4
+#define  BASE_OFFSET                                      0x4
 typedef enum
 {
-	ISER =0x0 ,
+	ISER=0x0 ,
 	ICER=0x180,
 	ISPR=0x200,
 	ICPR=0x280,
 	IABR=0x300,
-	IPR   =0x400,
-	STIR  =0xE00
+	IPR =0x400,
+	STIR=0xE00
 } NVIC_OFFSECTs_Reg_t ;
 /*******************************************************YOU CAN USE ******************************************/
 #define   NVIC_REG( _NVIC_OFFSECTs_Reg_t_  , _REG_NUMBER_ )         (  *( (volatile u32*)( (NVIC_ISER0_BASE_Address)+( (_NVIC_OFFSECTs_Reg_t_) +( (_REG_NUMBER_)*(BASE_OFFSET) ) ) )) )
@@ -111,9 +96,9 @@ typedef enum
 #define   NVIC_ISPR(  _REG_NUMBER_  )         (  *( (volatile u32*)( (NVIC_ISER0_BASE_Address)+( (ISPR) +( (_REG_NUMBER_)*(BASE_OFFSET) ) ) )) )
 #define   NVIC_ICPR(  _REG_NUMBER_  )         (  *( (volatile u32*)( (NVIC_ISER0_BASE_Address)+( (ICPR) +( (_REG_NUMBER_)*(BASE_OFFSET) ) ) )) )
 #define   NVIC_IABR(  _REG_NUMBER_  )         (  *( (volatile u32*)( (NVIC_ISER0_BASE_Address)+( (IABR) +( (_REG_NUMBER_)*(BASE_OFFSET) ) ) )) )
-#define   NVIC_IPR(  _REG_NUMBER_  )            (  *( (volatile u32*)( (NVIC_ISER0_BASE_Address)+( (IPR)   +( (_REG_NUMBER_)*(BASE_OFFSET) ) ) )) )
+#define   NVIC_IPR(   _REG_NUMBER_  )         (  *( (volatile u32*)( (NVIC_ISER0_BASE_Address)+( (IPR)  +( (_REG_NUMBER_)*(BASE_OFFSET) ) ) )) )
 
-#define   NVIC_STIR                                          (  *( (volatile u32*)( (NVIC_ISER0_BASE_Address)+ (STIR)  ) ) )
+#define   NVIC_STIR                           (  *( (volatile u32*)( (NVIC_ISER0_BASE_Address)+ (STIR)  ) ) )
 
 #endif
 #endif /* MNVIC_PRIVATE_H_ */

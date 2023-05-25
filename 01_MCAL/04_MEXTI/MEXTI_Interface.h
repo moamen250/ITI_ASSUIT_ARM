@@ -56,13 +56,61 @@ typedef enum
    MEXTI_SENSE_INVALID
 }EXTI_Sense_t ;
 
+
+typedef enum
+{
+	EXTI_LINE0 =0,
+	EXTI_LINE1   ,
+	EXTI_LINE2   ,
+	EXTI_LINE3   ,
+	EXTI_LINE4   ,
+	EXTI_LINE5   ,
+	EXTI_LINE6   ,
+	EXTI_LINE7   ,
+	EXTI_LINE8   ,
+	EXTI_LINE9   ,
+	EXTI_LINE10  ,
+	EXTI_LINE11  ,
+	EXTI_LINE12  ,
+	EXTI_LINE13  ,
+	EXTI_LINE14  ,
+	EXTI_LINE15  ,
+	EXTI_INVALID_LINE
+}EXTI_LINE_t;
+
+typedef enum
+{
+	EXTI_INTR_0          ,   //!< EXTI_INTR_0
+	EXTI_INTR_1          ,   //!< EXTI_INTR_1
+	EXTI_INTR_2          ,   //!< EXTI_INTR_2
+	EXTI_INTR_3          ,   //!< EXTI_INTR_3
+	EXTI_INTR_4          ,   //!< EXTI_INTR_4
+	EXTI_INTR_5          ,   //!< EXTI_INTR_5
+	EXTI_INTR_6          ,   //!< EXTI_INTR_6
+	EXTI_INTR_7          ,   //!< EXTI_INTR_7
+	EXTI_INTR_8          ,   //!< EXTI_INTR_8
+	EXTI_INTR_9          ,   //!< EXTI_INTR_9
+	EXTI_INTR_10         ,   //!< EXTI_INTR_10
+	EXTI_INTR_11         ,   //!< EXTI_INTR_11
+	EXTI_INTR_12         ,   //!< EXTI_INTR_12
+	EXTI_INTR_13         ,   //!< EXTI_INTR_13
+	EXTI_INTR_14         ,   //!< EXTI_INTR_14
+	EXTI_INTR_15         ,   //!< EXTI_INTR_15
+	EXTI_INTR_16         ,   //!< EXTI_INTR_16
+	EXTI_INTR_17         ,   //!< EXTI_INTR_17
+	EXTI_INTR_18         ,   //!< EXTI_INTR_18
+	EXTI_INTR_21   =21   ,   //!< EXTI_INTR_21
+	EXTI_INTR_22         ,   //!< EXTI_INTR_22
+
+}EXTI_INTR_N;
+
 ES_t       MEXTI_errInit(void)                       ;
-ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line)             ;
-ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line)            ;
-ES_t       MEXTI_errSetSoftwareExtiLine(u8 Copy_u8Line)        ;
+ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)             ;
+ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)            ;
+ES_t       MEXTI_errSetSoftwareExtiLine(EXTI_INTR_N  Copy_uddtExit_Inter_Num)   ;
 ES_t       MEXTI_errSetCallBackEXTI0(void (*PFunc) (void))                ;
 ES_t       MEXTI_errSetCallBackEXTI1(void (*PFunc) (void))                ;
-ES_t       MEXTI_errSetSenseLevel(u8 Copy_u8Line , EXTI_Sense_t Copy_uddtSenseType)              ;
+ES_t       MEXTI_errSetSenseLevel(EXTI_LINE_t Copy_u8Line , EXTI_Sense_t Copy_uddtSenseType)              ;
 
 
 /*************************************************************************************************************/
