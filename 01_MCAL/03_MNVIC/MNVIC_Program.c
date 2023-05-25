@@ -157,14 +157,14 @@ ES_t MNVIC_errSetInterruptPriority(u8 Copy_u8IntIndex ,MNVIC_GPriority_t Copy_ud
 			case MNVIC_G16_S0:
 			
 			if( (u8)Copy_uddtGPriority > MNVIC_GROUP_PRI15) {LOC_uddtState=ES_WRONG_MODE_VALUE;}
-			else{ MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtSubGPriority))<<4;}
+			else{ MNVIC->IPR[Copy_u8IntIndex] =(Copy_uddtGPriority)<<4;}
 			break;
 			//in case of GLB_uddtSysPriority =MNVIC_G8_S2 -->   G=8   SG=2
 			case MNVIC_G8_S2:
 			
 			if((u8)(Copy_uddtGPriority) > MNVIC_GROUP_PRI7){LOC_uddtState=ES_WRONG_MODE_VALUE;}
             else if( (u8)(Copy_uddtSubGPriority) > MNVIC_SUBGROUP_PRI1){LOC_uddtState=ES_WRONG_MODE_VALUE;}
-			else{MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtSubGPriority))<<4;}
+			else{MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<1) | (Copy_uddtSubGPriority))<<4;}
 			break;
 			
 			//in case of GLB_uddtSysPriority =MNVIC_G4_S4 -->   G=4   SG=4
@@ -181,12 +181,16 @@ ES_t MNVIC_errSetInterruptPriority(u8 Copy_u8IntIndex ,MNVIC_GPriority_t Copy_ud
 			
 			if((u8)(Copy_uddtGPriority) > MNVIC_GROUP_PRI1){LOC_uddtState=ES_WRONG_MODE_VALUE;}
 			else if((u8)(Copy_uddtSubGPriority) > MNVIC_SUBGROUP_PRI7){LOC_uddtState=ES_WRONG_MODE_VALUE;}
-			else {MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtSubGPriority))<<4;}
+			else {MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<3) | (Copy_uddtSubGPriority))<<4;}
 			break;
 			//in case of GLB_uddtSysPriority =MNVIC_G0_S16 -->   G=0   SG=16
 			case MNVIC_G0_S16:
 			if((u8)(Copy_uddtSubGPriority) > MNVIC_SUBGROUP_PRI15) {LOC_uddtState=ES_WRONG_MODE_VALUE;}
-			else {MNVIC->IPR[Copy_u8IntIndex] =((Copy_uddtGPriority<<2) | (Copy_uddtSubGPriority))<<4;}
+			else {MNVIC->IPR[Copy_u8IntIndex] =(Copy_uddtSubGPriority)<<4;}
+			break;
+			default :
+			LOC_uddtState =ES_WRONG_MODE_VALUE;
+			return LOC_uddtState;
 			break;
 			
 		}
