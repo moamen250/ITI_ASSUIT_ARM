@@ -110,6 +110,7 @@ ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)            
 ES_t       MEXTI_errSetSoftwareExtiLine(EXTI_INTR_N  Copy_uddtExit_Inter_Num)   ;
 ES_t       MEXTI_errSetCallBackEXTI0(void (*PFunc) (void))                ;
 ES_t       MEXTI_errSetCallBackEXTI1(void (*PFunc) (void))                ;
+ES_t       MEXTI_errClearPeningEXTI(EXTI_INTR_N Copy_uddEXTI_Num)			  ;
 ES_t       MEXTI_errSetSenseLevel(EXTI_LINE_t Copy_u8Line , EXTI_Sense_t Copy_uddtSenseType)              ;
 
 
