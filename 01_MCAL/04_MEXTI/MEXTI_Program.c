@@ -166,7 +166,13 @@ ES_t       MEXTI_errSetSenseLevel(EXTI_LINE_t Copy_uddtLine , EXTI_Sense_t Copy_
     return Local_uddtSenseErr;
 }
 
-
+ES_t       MEXTI_errClearPeningEXTI(EXTI_INTR_N Copy_uddEXTI_Num)					
+{
+	ES_t Local_ErrorState = ES_OK ;
+	if (Copy_uddEXTI_Num <= EXTI_INTR_1) { MEXTI->PR = (1U << Copy_uddEXTI_Num);}
+	else{Local_ErrorState = ES_WRONG_MODE_VALUE;}
+	return Local_ErrorState;
+}
 
 
 void EXTI0_IRQHandler(void)
