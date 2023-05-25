@@ -65,8 +65,8 @@ ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line , MGPIO_uddtPortNum Copy_u8Por
   else{
 	 SYSCFG_EXTICR((Copy_u8Line))  &= ~((0b1111U) << ((Copy_u8Line%4)*4));
 	 SYSCFG_EXTICR((Copy_u8Line))  |= ((Copy_u8Port) << ((Copy_u8Line%4)*4));
-	SET_BIT(MEXTI -> IMR , Copy_u8Line);
-	//SET_BIT(MEXTI ->EMR  , Copy_u8Line);
+	 SET_BIT(MEXTI -> IMR , Copy_u8Line);
+	 SET_BIT(MEXTI ->EMR  , Copy_u8Line);
   }
 	return Local_u8RegIndex;
 }
@@ -80,7 +80,9 @@ ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)
 		  }
 		  else{
 			 SYSCFG_EXTICR((Copy_u8Line))  &= ~((0b1111U) << ((Copy_u8Line%4)*4));
-			CLR_BIT(MEXTI -> IMR , Copy_u8Line);
+			 CLR_BIT(MEXTI -> IMR , Copy_u8Line);
+			 CLR_BIT(MEXTI ->EMR  , Copy_u8Line);
+
 
 		  }
 			return Local_u8RegIndex;
