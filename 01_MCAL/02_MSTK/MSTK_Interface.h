@@ -24,7 +24,10 @@ typedef enum
 
 void MSTK_Init(void) ;
 void MSTK_TimerStart(void) ;
-void _delay_ms(u32 Copy_u32Time)  ;
+void  _delay_ms(f32 Copy_u32Time);
 void _delay_us(u32 Copy_u32Time)  ;
-
+ES_t MSTK_errSetCallBackSTK(void (*PFunc) (void));
+void MSTK_TimerStart_INT(f32 Copy_u32Time);
+void MSTK_INT_Disable(void);
+void MSTK_INT_Enable(f32 Copy_u32Time);
 #endif /* MSTK_INTERFACE_H_ */
