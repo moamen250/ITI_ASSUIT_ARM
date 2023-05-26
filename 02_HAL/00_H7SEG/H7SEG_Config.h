@@ -30,12 +30,15 @@
 /**************************************************************************/
 /*    define the pins connected to the 7-segment display                  */
 /**************************************************************************/
-#define H7SEG_PIN_A MGPIO_PIN0
-#define H7SEG_PIN_B MGPIO_PIN1
-#define H7SEG_PIN_C MGPIO_PIN2
-#define H7SEG_PIN_D MGPIO_PIN3
-#define H7SEG_PIN_E MGPIO_PIN4
-#define H7SEG_PIN_F MGPIO_PIN5
-#define H7SEG_PIN_G MGPIO_PIN6
+typedef enum
+{
+	H7SEG_PIN_A = 0,
+	H7SEG_PIN_B ,
+	H7SEG_PIN_C ,
+	H7SEG_PIN_D ,
+	H7SEG_PIN_E ,
+	H7SEG_PIN_F ,
+	H7SEG_PIN_G
+}H7SEG_PIN_t;
 
 #endif /* H7SEG_CONFIG_H_ */

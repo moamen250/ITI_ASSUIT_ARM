@@ -19,7 +19,9 @@
 #include  "MEXTI_Private.h"
 #include  "MEXTI_Config.h"
 #include  "MEXTI_Interface.h"
-
+#include  "MRCC_Interface.h"
+#include "MGPIO_Inteface.h"
+#include "MNVIC_Interface.h"
 /***********************************************************************************************************/
 /*                                      MEXTI  Functions implementation                                    */
 /***********************************************************************************************************/
@@ -31,71 +33,59 @@ ES_t   MEXTI_errInit(void)
 {
 // TODO -> Ghada with config File
        ES_t Loc_State=ES_OK;
-#if    EXT_INT_LEVEL==MEXTI_RISING_EDGE
+
+#if    EXT_INT_LEVEL==MEXTI_RISING_
+
+
        SET_BIT(MEXTI->RTSR ,EXT_INT_LINE_NUM ) ;
        CLR_BIT(MEXTI->FTSR ,EXT_INT_LINE_NUM ) ;
 
-#elif  EXT_INT_LEVEL==MEXTI_FALLING_EDGE
+#elif  EXT_INT_LEVEL==MEXTI_FALLING_
+
        SET_BIT(MEXTI->FTSR ,EXT_INT_LINE_NUM ) ;
        CLR_BIT(MEXTI->RTSR , EXT_INT_LINE_NUM ) ;
 
-#elif  EXT_INT_LEVEL==MEXTI_ON_CHANGE
+#elif  EXT_INT_LEVEL== MEXTI_ON_CH
+
        SET_BIT(MEXTI->RTSR , EXT_INT_LINE_NUM ) ;
        SET_BIT(MEXTI->FTSR ,EXT_INT_LINE_NUM ) ;
 #else
-       ES_t Loc_State=ES_NOK;
+       Loc_State=ES_NOK;
 #endif
       return Loc_State;
 }
-ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)
+ES_t       MEXTI_errEnableExtiLine(u8 Copy_u8Line , MGPIO_uddtPortNum Copy_u8Port)
 {
-	u8 Local_u8RegIndex = 0;
 	
-	if (Copy_u8Line > MAXEXTILINES) {
-		return ES_NOK; 
-	}else if (Copy_u8Line <= 3){
-		Local_u8RegIndex = 0;
-	}else if (Copy_u8Line <= 7){
-		Local_u8RegIndex = 1;
-		Copy_u8Port -= 4;
-	}else if (Copy_u8Line <= 11){
-		Local_u8RegIndex = 2;
-		Copy_u8Port -= 8;
-	}else if (Copy_u8Line <= 15){
-		Local_u8RegIndex = 3;
-		Copy_u8Port -= 12;
-	}
-	
-	EXTI -> EXTICR[Copy_u8Line] &= ~((0b1111) << (Copy_u8Line*4));
-	EXTI -> EXTICR[Copy_u8Line] |= ((Copy_u8Port) << (Copy_u8Line*4));
-	SET_BIT(MEXTI -> IMR , Copy_u8Line);
-	return ES_OK;	
+	u8 Local_u8RegIndex = ES_OK ;
+  if (Copy_u8Line >  MGPIO_PIN15  ||  Copy_u8Port  > MGPIO_PORTC )
+  {
+	  Local_u8RegIndex = ES_OUT_OF_RANGE_EXTI_LINES;
+  }
+  else{
+	 SYSCFG_EXTICR((Copy_u8Line))  &= ~((0b1111U) << ((Copy_u8Line%4)*4));
+	 SYSCFG_EXTICR((Copy_u8Line))  |= ((Copy_u8Port) << ((Copy_u8Line%4)*4));
+	 SET_BIT(MEXTI -> IMR , Copy_u8Line);
+	 SET_BIT(MEXTI ->EMR  , Copy_u8Line);
+  }
+	return Local_u8RegIndex;
 }
 
 ES_t       MEXTI_errDisableExtiLine(u8 Copy_u8Line , u8 Copy_u8Port)            
 {
 	u8 Local_u8RegIndex = 0;
 	
-	if (Copy_u8Line > MAXEXTILINES) {
-		return ES_NOK; 
-	}else if (Copy_u8Line <= 3){
-		Local_u8RegIndex = 0;
-	}else if (Copy_u8Line <= 7){
-		Local_u8RegIndex = 1;
-		Copy_u8Port -= 4;
-	}else if (Copy_u8Line <= 11){
-		Local_u8RegIndex = 2;
-		Copy_u8Port -= 8;
-	}else if (Copy_u8Line <= 15){
-		Local_u8RegIndex = 3;
-		Copy_u8Port -= 12;
-	}
-	
-	EXTI -> EXTICR[Copy_u8Line] &= ~((0b1111) << (Copy_u8Line*4));
-	
-	CLR_BIT(MEXTI -> IMR , Copy_u8Line);
-	
-	return ES_OK;
+	if (Copy_u8Line >  MGPIO_PIN15  ||  Copy_u8Port  > MGPIO_PORTC) {
+		 Local_u8RegIndex = ES_OUT_OF_RANGE_EXTI_LINES;
+		  }
+		  else{
+			 SYSCFG_EXTICR((Copy_u8Line))  &= ~((0b1111U) << ((Copy_u8Line%4)*4));
+			 CLR_BIT(MEXTI -> IMR , Copy_u8Line);
+			 CLR_BIT(MEXTI ->EMR  , Copy_u8Line);
+
+
+		  }
+			return Local_u8RegIndex;
 }
 /***********************************************************************************************************/
 /*                                         03_ MEXTI_errSetSoftwareExtiLine                                */
@@ -176,13 +166,20 @@ ES_t       MEXTI_errSetSenseLevel(EXTI_LINE_t Copy_uddtLine , EXTI_Sense_t Copy_
     return Local_uddtSenseErr;
 }
 
-
+ES_t       MEXTI_errClearPeningEXTI(EXTI_INTR_N Copy_uddEXTI_Num)					
+{
+	ES_t Local_ErrorState = ES_OK ;
+	if (Copy_uddEXTI_Num <= EXTI_INTR_1) { MEXTI->PR = (1U << Copy_uddEXTI_Num);}
+	else{Local_ErrorState = ES_WRONG_MODE_VALUE;}
+	return Local_ErrorState;
+}
 
 
 void EXTI0_IRQHandler(void)
 {
 	EXTI0_PFunk_CallBack();
 
+	MEXTI->PR = 0x01;
 }
 void EXTI1_IRQHandler(void)
 {

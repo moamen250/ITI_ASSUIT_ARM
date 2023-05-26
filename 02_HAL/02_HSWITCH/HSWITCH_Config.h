@@ -1,18 +1,12 @@
-/*
- * HSWITCH_Config.h
- *
- *  Created on: May 13, 2023
- *      Author: D E L L
- */
-
+/**************************************************************************/
+/* Author     : John Salah Makar                                          */
+/* Version    : V1.0.0                                                    */
+/*Date        : 13 May 2023                                               */
+/*Description : HSWITCH_Config.h                                          */
+/***************************************************************************/
 #ifndef HSWITCH_CONFIG_H_
 #define HSWITCH_CONFIG_H_
 
-/*
- * CAN CHOOSE PORTS FORM : MGPIO_PORTA , MGPIO_PORTB , MGPIO_PORTC
- * */
-/*
-#define SWITCHONE_PIN MGPIO_PIN0
-#define SWITCH_PORT   MGPIO_PORTA
-*/
+
+
 #endif /* HSWITCH_CONFIG_H_ */

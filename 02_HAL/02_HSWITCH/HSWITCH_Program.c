@@ -1,34 +1,45 @@
-/**************************************************************************/
-/* Author     : John Salah Makar                                          */
-/* Version    : V1.0.0                                                    */
-/*Date        : 13 May 2023                                               */
-/*Description : HSWITCH_Interface.h                                       */
-/*Features    : -HSWITCH_errInit()                                        */
-/*              -HSWITCH_errON()                                          */
-/*              -HSWITCH_errOFF()                                         */
-/**************************************************************************/
+/****************************************************************************************/
+/* Author     : John Salah Makar                                                        */
+/* Version    : V1.0.0                                                                  */
+/*Date        : 13 May 2023                                                             */
+/*Description : HSWITCH_Interface.h                                                     */
+/*Features    : -HSWITCH_errInit()                                                      */
+/*              -HSWITCH_errON()                                                        */
+/*              -HSWITCH_errOFF()                                                       */
+/****************************************************************************************/
 
-/**************************************************************************/
-/*                              Standard Types                            */
-/**************************************************************************/
+/*======================================================================================*/
+
+/****************************************************************************************/
+/*                                  Standard Types                                      */
+/****************************************************************************************/
 
 #include "LSTD_TYPES.h"
 #include "LBIT_MATH.h"
 #include "LERROR_STATES.h"
 #include "MGPIO_Inteface.h"
-/**************************************************************************/
-/*                            Peripherals Files                           */
-/**************************************************************************/
+/****************************************************************************************/
+/*                                 Peripherals Files                                    */
+/****************************************************************************************/
 #include "HSWITCH_Config.h"
 #include "HSWITCH_Interface.h"
 #include "HSWITCH_Private.h"
 #include "MRCC_Interface.h"
-#define HLED_PIN  MGPIO_PIN0
-#define HLED_PORT MGPIO_PORTA
 
-/**************************************************************************/
-/*                         Function Implementation                        */
-/**************************************************************************/
+
+/****************************************************************************************/
+/*                               Function Implementation                                */
+/****************************************************************************************/
+
+/*======================================================================================*/
+
+/****************************************************************************************/
+/* @brief : This Function Used To Initialize The Switch                                 */
+/* @param : MGPIO_uddtPortNum -> This Parameter Make User Choose Switch Port            */
+/* @param : MGPIO_uddtPinNum  -> This Parameter Make User Choose Switch Pin             */
+/* @return: This Function Return Error State                                            */
+/****************************************************************************************/
+
 ES_t HSWITCH_errInit(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum)
 {
 	ES_t Local_errState = ES_OK;
@@ -65,6 +76,14 @@ ES_t HSWITCH_errInit(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_ud
 
 	return Local_errState;
 }
+
+/****************************************************************************************/
+/* @brief : This Function Used To Get The State Of Switch                               */
+/* @param : MGPIO_uddtPortNum -> This Parameter Make User Choose Switch Port            */
+/* @param : MGPIO_uddtPinNum  -> This Parameter Make User Choose Switch Pin             */
+/* @return: This Function Return Error State                                            */
+/****************************************************************************************/
+
 u8 HSWITCH_u8GetSwitchState(MGPIO_uddtPortNum Copy_uddtPortNum,MGPIO_uddtPinNum Copy_uddtPinNum)
 {
 	u8 LOC_SwitchState;
