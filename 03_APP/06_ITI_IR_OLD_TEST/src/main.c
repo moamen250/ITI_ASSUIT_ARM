@@ -28,7 +28,7 @@
 /*                       Applications Macros                              */
 /**************************************************************************/
 
-#define    EXTI0         6
+//#define    EXTI0         6
 
 volatile u8 Counter = 0 ;
 volatile u8 Start_Flag = 0 ;
@@ -43,15 +43,15 @@ void App_voidPlay(void)
 {
 	switch(IR_Data)
 	{
-	case 10 : MGPIO_errSetPinData(MGPIO_PORTA,MGPIO_PIN1,MGPIO_PIN_HIGH) ; break ;
-	case 11 : MGPIO_errSetPinData(MGPIO_PORTA,MGPIO_PIN1,MGPIO_PIN_LOW) ; break ;
+	case 28 : MGPIO_errSetPinData(MGPIO_PORTA,MGPIO_PIN1,MGPIO_PIN_HIGH) ; break ;
+	case 6 : MGPIO_errSetPinData(MGPIO_PORTA,MGPIO_PIN1,MGPIO_PIN_LOW) ; break ;
 	default : /*Do Nothing*/ break ;
 	}
 }
 
 void App_voidFillData(void)
 {
-    //Systick Firing -> Single Interval
+	//Systick Firing -> Single Interval
 	/*Step 1 : Check is valid start bit*/
 	if((Readings[0] >= 10000) && (Readings[0] <= 14000))
 	{
@@ -78,15 +78,15 @@ void App_voidFillData(void)
 	}
 	else
 	{
-	   /*Invalid Frame*/
+		/*Invalid Frame*/
 	}
-  Start_Flag = 0 ;
-  IR_Data = 0 ;
-  Counter = 0 ;
+	Start_Flag = 0 ;
+	IR_Data = 0 ;
+	Counter = 0 ;
 }
 void App_voidGetFrame(void)
 {
-  /*Get Readings for each bit*/
+	/*Get Readings for each bit*/
 	if(Start_Flag == 0)
 	{
 		//First Time
@@ -111,6 +111,8 @@ int main(void)
 	MRCC_errInitSystemClk() ;
 	/*Step 2 : Enable GPIOA Clock*/
 	MRCC_errEnablePeripherialClk(MRCC_AHB1,MRCC_GPIOA_EN) ;
+	MRCC_errEnablePeripherialClk(MRCC_AHB2,MRCC_SYSCFG_EN) ;
+
 	/*Step 3: PA0 --> Input/float --> EXTI0*/
 	MGPIO_errSetPinMode(MGPIO_PORTA,MGPIO_PIN0,MGPIO_MODE_INPUT) ;
 	MGPIO_errSetPullType(MGPIO_PORTA,MGPIO_PIN0,MGPIO_PULL_OFF) ;
@@ -124,12 +126,13 @@ int main(void)
 	/*Step 7: Enable EXTI from the Peripherial*/
 	MEXTI_errEnableExtiLine(EXTI_LINE0,MGPIO_PORTA) ;
 	/*Step 8: Enable EXTI from the NVIC*/
-    MNVIC_errEnablePerInterrupt(EXTI0) ;
-    /*Step 9 : Initialize Timer -> AHB/8 -> 1 tick = 0.5 microsecond*/
+	MNVIC_errEnablePerInterrupt(6) ;
+	/*Step 9 : Initialize Timer -> AHB/8 -> 1 tick = 0.5 microsecond*/
 	MSTK_Init() ;
+
 	while(1)
 	{
-		/*Do Nothing*/
+
 	}
 }
 
